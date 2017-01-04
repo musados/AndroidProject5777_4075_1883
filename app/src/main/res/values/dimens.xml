@@ -6,4 +6,8 @@
     <dimen name="buttons_stroke_thickness">1dp</dimen>
     <dimen name="splash_image_width">250dp</dimen>
     <dimen name="buttons_sides_margin">50dp</dimen>
+    <dimen name="user_texts_inputs_height">30dp</dimen>
+    <dimen name="user_texts_inputs_width">200dp</dimen>
+    <dimen name="user_input_top_margin">15dp</dimen>
+    <dimen name="user_input_bottom_margin">15dp</dimen>
 </resources>

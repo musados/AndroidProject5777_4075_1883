@@ -12,6 +12,6 @@
     <color name="mediumGreen">#00aa00</color>
     <color name="darkGreen">#005500</color>
     <color name="yellow">#5fdfaf00</color>
-    <color name="smokeWhite">#fffffcc0</color>
+    <color name="lightYellow">#fffffcc0</color>
     <color name="strokeTransparentBlack">#24000000</color>
 </resources>

@@ -10,7 +10,7 @@
     android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/smokeWhite"
+    android:background="@color/lightYellow"
     tools:context="com.siduron.java.androidproject5777_4075_4075.MainActivity">
 
     <ImageView
@@ -24,6 +24,39 @@
         android:cropToPadding="false"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/bussiness_agency_app" />
+
+    <EditText
+        android:hint="@string/user_email_name_placeholder"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:id="@+id/userName"
+        android:background="@drawable/inputs_backgroud"
+        style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"/>
+
+    <EditText
+        android:hint="@string/password_placeholder"
+        android:inputType="textPassword"
+        android:ems="10"
+        style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/userName"
+        android:id="@+id/userPassword"
+        android:background="@drawable/inputs_backgroud"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userPassword"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/login_checkbox"
+        android:text="@string/login_checkbox"/>
+
+
+    <!-- Buttons Area -->
 
     <LinearLayout android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -70,6 +103,8 @@
             style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
             />
     </LinearLayout>
+
+
 
 
 </RelativeLayout>

@@ -19,4 +19,12 @@
 
     </style>
 
+    <style name="AlertDialog.AppCompat.Light.WhiteTextInput">
+        <item name="android:layout_height">@dimen/user_texts_inputs_height</item>
+        <item name="android:layout_width">@dimen/user_texts_inputs_width</item>
+        <item name="android:layout_marginTop">@dimen/user_input_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/user_input_bottom_margin</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

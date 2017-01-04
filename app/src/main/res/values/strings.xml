@@ -19,4 +19,7 @@
     <string name="log_in">Log in</string>
     <string name="register">Register</string>
     <string name="or">or</string>
+    <string name="user_email_name_placeholder">Name@e-mail.com</string>
+    <string name="password_placeholder">Password</string>
+    <string name="login_checkbox">Remmber me</string>
 </resources>
