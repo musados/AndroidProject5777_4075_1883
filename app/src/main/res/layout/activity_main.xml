@@ -14,8 +14,8 @@
     tools:context="com.siduron.java.androidproject5777_4075_4075.MainActivity">
 
     <ImageView
-        android:layout_width="@dimen/splash_image_width"
-        android:layout_height="@dimen/splash_image_width"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         app:srcCompat="@drawable/travel"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="57dp"
@@ -23,7 +23,7 @@
         android:scaleType="fitCenter"
         android:cropToPadding="false"
         android:layout_alignParentTop="true"
-        android:contentDescription="Bussiness agency app" />
+        android:contentDescription="@string/bussiness_agency_app" />
 
     <LinearLayout android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -34,38 +34,40 @@
         android:minWidth="150dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:gravity="center">
 
         <Button
-            android:text="Log in"
-            android:layout_width="match_parent"
+            android:text="@string/log_in"
+            android:layout_width="wrap_content"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:layout_height="wrap_content"
             android:id="@+id/LoginButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/buttons_sides_margin"
-            android:layout_marginRight="@dimen/buttons_sides_margin"
             android:background="@drawable/green_round_button"
-            android:layout_marginBottom="20dp"
             style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="or"
-            android:layout_centerHorizontal="true"/>
+            android:text="@string/or"
+            android:padding="10dp"/>
         <Button
-            android:text="Register"
+            android:text="@string/register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:id="@+id/RegisterButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/buttons_sides_margin"
-            android:layout_marginRight="@dimen/buttons_sides_margin"
-            android:layout_marginBottom="10dp"
-            android:textColor="#000"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:textColor="#fff"
             android:padding="0dp"
-            android:height="17dp"
+            android:height="10dp"
+
             android:background="@drawable/hyper_link_button"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
             />
     </LinearLayout>
 

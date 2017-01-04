@@ -15,4 +15,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="bussiness_agency_app">Bussiness agency app</string>
+    <string name="log_in">Log in</string>
+    <string name="register">Register</string>
+    <string name="or">or</string>
 </resources>
