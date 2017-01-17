@@ -15,11 +15,12 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
     <string name="bussiness_agency_app">Bussiness agency app</string>
     <string name="log_in">Log in</string>
     <string name="register">Register</string>
     <string name="or">or</string>
-    <string name="user_email_name_placeholder">Name@e-mail.com</string>
+    <string name="user_email_name_placeholder">foo@example.com</string>
     <string name="password_placeholder">Password</string>
     <string name="login_checkbox">Remmber me</string>
 </resources>
