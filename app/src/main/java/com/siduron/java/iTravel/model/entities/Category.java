@@ -11,5 +11,5 @@ package com.siduron.java.iTravel.model.entities;
  *
  */
 public enum Category {
-
+    SHORT_TRACK,DAY_TRIP, GUIDED_TOUR,HOTEL,WEEKEND,FAMILIS_TRIP;
 }
