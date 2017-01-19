@@ -24,13 +24,20 @@
         </activity>
         <activity
             android:name="com.siduron.java.iTravel.controller.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.siduron.java.iTravel.controller.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name="com.siduron.java.iTravel.controller.UserLoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+
+        <provider
+            android:name="com.siduron.java.iTravel.model.backend.iTravelContentProvider"
+            android:authorities=".iTravelContentProvider"
+            android:exported="true" />
+
+        <activity android:name="com.siduron.java.iTravel.controller.RegisterActivity"></activity>
     </application>
 
 </manifest>
