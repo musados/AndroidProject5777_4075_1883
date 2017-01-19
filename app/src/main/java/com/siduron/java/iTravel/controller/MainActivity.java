@@ -1,4 +1,4 @@
-package com.siduron.java.androidproject5777_4075_4075;
+package com.siduron.java.iTravel.controller;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.siduron.java.androidproject5777_4075_4075.R;
 
 public class MainActivity extends AppCompatActivity {
     final Context contex=this;

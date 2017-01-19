@@ -1,4 +1,6 @@
-package BackEnd;
+package com.siduron.java.iTravel.model.datasource;
+
+import com.siduron.java.iTravel.model.backend.IBackEnd;
 
 /**
  * Created by musad on 17/01/2017.

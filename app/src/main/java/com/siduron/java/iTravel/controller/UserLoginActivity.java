@@ -1,8 +1,10 @@
-package com.siduron.java.androidproject5777_4075_4075;
+package com.siduron.java.iTravel.controller;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.siduron.java.androidproject5777_4075_4075.R;
 
 /**
  * Created by musad on 01/01/2017.

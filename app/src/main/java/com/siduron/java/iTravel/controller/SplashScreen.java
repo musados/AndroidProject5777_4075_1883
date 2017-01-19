@@ -1,4 +1,4 @@
-package com.siduron.java.androidproject5777_4075_4075;
+package com.siduron.java.iTravel.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+
+import com.siduron.java.androidproject5777_4075_4075.R;
 
 public class SplashScreen extends AppCompatActivity {
 

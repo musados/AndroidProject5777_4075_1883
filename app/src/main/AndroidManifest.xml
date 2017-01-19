@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name="com.siduron.java.iTravel.controller.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,13 +23,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.siduron.java.iTravel.controller.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.siduron.java.iTravel.controller.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity
-            android:name=".UserLoginActivity"
+            android:name="com.siduron.java.iTravel.controller.UserLoginActivity"
             android:label="@string/title_activity_login"></activity>
     </application>
 

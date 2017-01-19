@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.siduron.java.androidproject5777_4075_4075.LoginActivity">
+    tools:context="com.siduron.java.androidproject5777_4075_4075.com.siduron.java.iTravel.controller.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar

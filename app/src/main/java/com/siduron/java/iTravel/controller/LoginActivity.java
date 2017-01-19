@@ -1,4 +1,4 @@
-package com.siduron.java.androidproject5777_4075_4075;
+package com.siduron.java.iTravel.controller;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -28,6 +28,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.siduron.java.androidproject5777_4075_4075.R;
 
 import java.util.ArrayList;
 import java.util.List;
