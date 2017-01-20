@@ -11,6 +11,7 @@ package com.siduron.java.iTravel.model.entities;
  * @author Moshe Nahari & Haim Milikovski
  */
 public class ActivityAdapter {
+    private int id;
     private int activityId;
     private int bussinesId;
 
@@ -21,8 +22,9 @@ public class ActivityAdapter {
      * @param activity for linking
      * @param bussiness for linking.
      */
-    public ActivityAdapter(Activity activity,Bussiness bussiness)
+    public ActivityAdapter(int id0,Activity activity,Bussiness bussiness)
     {
+        id=id0;
         activityId = activity.getId();
         bussinesId = bussiness.getId();
     }
@@ -32,14 +34,16 @@ public class ActivityAdapter {
      * @param aId activity ID
      * @param bId bussines ID
      */
-    public ActivityAdapter(int aId,int bId)
+    public ActivityAdapter(int id0,int aId,int bId)
     {
+        id=id0;
         activityId=aId;
         bussinesId=bId;
     }
 
     //Get methods
 
+    public int getID(){return id;}
     public int getActivityID(){return  activityId;}
     public int getBussinessID(){return bussinesId;}
 
