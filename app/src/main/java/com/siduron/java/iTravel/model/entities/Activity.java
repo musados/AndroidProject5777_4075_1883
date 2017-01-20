@@ -10,6 +10,7 @@ public class Activity {
 
     //Activity identification
     private int id;
+    private int bussinessID;
     private String activityName;
     private String activityDescription;
 
@@ -25,6 +26,7 @@ public class Activity {
     /**
      * CTOR takes all the Activity class's details
      * @param id0
+     * @param bussinesID0
      * @param name activity's name
      * @param descrip activity's description
      * @param start date of the activity
@@ -33,11 +35,12 @@ public class Activity {
      * @param location activity's location
      * @param price activity's price
      */
-    public Activity(int id0,String name,String descrip,
+    public Activity(int id0,int bussinesID0,String name,String descrip,
                     Date start,Date end,
                     Category category,String location,double price)
     {
         id=id0;
+        bussinessID=bussinesID0;
         activityName=name;
         activityDescription=descrip;
         startDay=start;
