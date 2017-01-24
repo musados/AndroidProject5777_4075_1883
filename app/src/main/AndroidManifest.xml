@@ -26,6 +26,9 @@
             android:name="com.siduron.java.iTravel.controller.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name="com.siduron.java.iTravel.controller.RegisterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name="com.siduron.java.iTravel.controller.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
@@ -37,7 +40,7 @@
             android:authorities=".iTravelContentProvider"
             android:exported="true" />
 
-        <activity android:name="com.siduron.java.iTravel.controller.RegisterActivity"></activity>
+        <activity android:name="com.siduron.java.iTravel.controller.UserPanel"></activity>
     </application>
 
 </manifest>

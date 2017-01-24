@@ -17,7 +17,7 @@ import java.net.URI;
 public class iContract
 {
     /**
-     * User DB fields names
+     * User DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
     public static class User {
@@ -35,7 +35,7 @@ public class iContract
     }
 
     /**
-     * Bussiness DB fields names
+     * Bussiness DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
     public static class Bussiness {
@@ -48,7 +48,7 @@ public class iContract
     }
 
     /**
-     * Activity DB fields names
+     * Activity DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
     public static class Activity {
@@ -66,7 +66,7 @@ public class iContract
     }
 
     /**
-     * Activity adapter DB fields names
+     * Activity adapter DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
     public static class ActivityAdapter {
@@ -77,15 +77,41 @@ public class iContract
         public static final String TABLE_NAME="Activity_adapters_table";
     }
 
+    /**
+     * Content provider settings
+     * @author Moshe Nahari & Haim Milikovski
+     */
     public static class ContentProvider
     {
         public static final String NAME="com.siduron.java.iTravel.model.backend.iTravelContentProvider";
         public static final String AUTHORITY=".iTravelContentProvider";
         public static final Uri URI= Uri.parse("content://"+AUTHORITY);
     }
+
+
+
+    /**
+     * Web site - addresses details (settings)
+     * @author Moshe Nahari & Haim Milikovski
+     */
     public static class WebInterfaces
     {
         public static final String DOMAIN_AUTHORITY="mnahari.vlab.jct.ac.il";
         public static final String URL= "http://"+DOMAIN_AUTHORITY;
+    }
+
+    public  static  class iSharedPreference
+    {
+        public final static String SHARED_NAME="iSharedSettings";
+        public final static String LAST_USER_NAME="LastUserName";
+        public final static String LAST_USER_PASSWORD="LastUserPassword";
+        public final static String SAVE_LAST_USER="SaveLastUser";
+    }
+
+    public static class LoginUserKeys
+    {
+        private static final String KEY_BASE="com.siduron.java.iTravel";
+        public static final String LOGIN_NAME_KEY=KEY_BASE+"_login_name";
+        public static final String LOGIN_PASSWORD_KEY=KEY_BASE+"_login_password";
     }
 }

@@ -89,7 +89,7 @@ public class User {
             birthDay=new Date();
         }
 
-        Log.i("New username created: ",uname);
+        Log.i("New user instance",uname);
     }
 
 

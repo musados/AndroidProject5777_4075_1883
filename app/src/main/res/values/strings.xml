@@ -9,9 +9,12 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="register_activity_login">Register</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password">The password must contain an least 8 characters</string>
+    <string name="error_invalid_confirm_password">The passwords not match</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_age_must_more_9">Your age is not allowed!</string>
+    <string name="error_phone_format">Enter valid phone number-10 digits for the local format and maximum 12 digits for the universal format e.g. +97250-000-0000.</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -22,5 +25,34 @@
     <string name="or">or</string>
     <string name="user_email_name_placeholder">foo@example.com</string>
     <string name="password_placeholder">Password</string>
+    <string name="re_password_placeholder">Confirm password</string>
     <string name="login_checkbox">Remmber me</string>
+    <string name="user_login_data">Login details:</string>
+    <string name="user_personal_data">Personal details:</string>
+
+    <string name="user_name">Enter user name (e-mail):</string>
+    <string name="user_password">Enter new password:</string>
+    <string name="user_password_confirm">Enter same password again:</string>
+
+    <string name="first_name">First name:</string>
+    <string name="first_name_example">e.g. John</string>
+    <string name="last_name">Last name:</string>
+    <string name="last_name_example">e.g. Brand</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="birth_day">Birthday:</string>
+    <string name="birth_day_example">e.g. 15/01/1990</string>
+    <string name="phone">Phone number:</string>
+    <string name="phone_example">e.g. +972500020123</string>
+    <string name="address">Address:</string>
+    <string name="address_example">e.g. John 415, TLV</string>
+    <string name="have_account_login">Already have an account?</string>
+    <string name="have_not_account_register">Do not have an account?</string>
+
+    <string name="registering_proccess_title">Trying to register</string>
+    <string name="proccess_running_wait">Pease Wait...</string>
+
+    <string name="choose_date">Select date</string>
+    <string name="saved_user_cleared">Cleared</string>
 </resources>

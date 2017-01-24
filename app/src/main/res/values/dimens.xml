@@ -10,4 +10,6 @@
     <dimen name="user_texts_inputs_width">25dp</dimen>
     <dimen name="user_input_top_margin">15dp</dimen>
     <dimen name="user_input_bottom_margin">15dp</dimen>
+    <dimen name="data_containers_margin">5dp</dimen>
+    <dimen name="data_containers_padding">16dp</dimen>
 </resources>

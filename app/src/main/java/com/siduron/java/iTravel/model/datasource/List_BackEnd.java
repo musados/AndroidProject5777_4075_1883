@@ -1,5 +1,8 @@
 package com.siduron.java.iTravel.model.datasource;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
 import com.siduron.java.iTravel.model.backend.IBackEnd;
 
 /**
@@ -26,4 +29,73 @@ public class List_BackEnd implements IBackEnd {
     private List_BackEnd()
     {}
 
+    @Override
+    public int addUser(ContentValues user) {
+        return 0;
+    }
+
+    @Override
+    public int addBussines(ContentValues bussines) {
+        return 0;
+    }
+
+    @Override
+    public int addActivity(ContentValues activity) {
+        return 0;
+    }
+
+    @Override
+    public boolean removeUser(int userID) {
+        return false;
+    }
+
+    @Override
+    public boolean removeBussines(int bussinessID) {
+        return false;
+    }
+
+    @Override
+    public boolean removeActivity(int activityID) {
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(int userID, ContentValues values) {
+        return false;
+    }
+
+    @Override
+    public boolean updateBusiness(int bussinessID, ContentValues values) {
+        return false;
+    }
+
+    @Override
+    public boolean updateActivity(int activityID, ContentValues values) {
+        return false;
+    }
+
+    @Override
+    public Cursor getUsers() {
+        return null;
+    }
+
+    @Override
+    public Cursor getBusiness() {
+        return null;
+    }
+
+    @Override
+    public Cursor getActivities() {
+        return null;
+    }
+
+    @Override
+    public boolean isActivitiesChanged() {
+        return false;
+    }
+
+    @Override
+    public boolean isBussinessChanged() {
+        return false;
+    }
 }
