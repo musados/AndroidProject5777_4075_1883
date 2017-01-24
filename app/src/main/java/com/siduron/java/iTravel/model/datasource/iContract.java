@@ -1,7 +1,7 @@
 package com.siduron.java.iTravel.model.datasource;
 
 /**
- * Created by musad on 20/01/2017.
+ * Created by Moshe Nahari on 20/01/2017.
  */
 
 import android.net.Uri;
@@ -20,7 +20,7 @@ public class iContract
      * User DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
-    public static class User {
+    public static class UserFields {
         public static final String ID = "_id";
         public static final String USERNAME = "username";
         public static final String PASSWORD = "password";
@@ -32,26 +32,28 @@ public class iContract
         public static final String ADDRESS = "address";
 
         public static final String TABLE_NAME="Users_table";
+        public static final Uri USER_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
     /**
      * Bussiness DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
-    public static class Bussiness {
+    public static class BussinessFields {
         public static final String ID = "_id";
         public static final String NAME = "name";
         public static final String PHONE = "phone";
         public static final String DESCRIPTION = "description";
 
         public static final String TABLE_NAME="Bussiness_table";
+        public static final Uri BUSSINESS_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
     /**
      * Activity DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
-    public static class Activity {
+    public static class ActivityFields {
         public static final String ID = "_id";
         public static final String BUSSINESS_ID = "bussiness_id";
         public static final String NAME = "name";
@@ -62,19 +64,21 @@ public class iContract
         public static final String LOCATION = "location";
         public static final String PRICE = "price";
 
-        public static final String TABLE_NAME="Activities_table";
+        public static final String TABLE_NAME = "Activities_table";
+        public static final Uri ACTIVITY_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
     /**
      * Activity adapter DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
-    public static class ActivityAdapter {
+    public static class ActivityAdapterFields {
         public static final String ID = "_id";
         public static final String ACTIVITY_ID = "activity_id";
         public static final String BUSSINESS_ID = "bussiness_id";
 
         public static final String TABLE_NAME="Activity_adapters_table";
+        public static final Uri ACTIVITY_ADAPTER_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
     /**
@@ -83,9 +87,9 @@ public class iContract
      */
     public static class ContentProvider
     {
-        public static final String NAME="com.siduron.java.iTravel.model.backend.iTravelContentProvider";
-        public static final String AUTHORITY=".iTravelContentProvider";
-        public static final Uri URI= Uri.parse("content://"+AUTHORITY);
+        public static final String AUTHORITY ="com.siduron.java.iTravel.model.backend.iTravelContentProvider";
+        public static final String NAME=".iTravelContentProvider";
+        public static final Uri AUTHORITY_URI= Uri.parse("content://"+AUTHORITY);
     }
 
 

@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
                 @Override
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
+                    //applying values to the variables
                     year =  arg1 ;
                     month = arg2 ;
                     day = arg3;
@@ -216,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
-        showDialog(989);
+        showDialog(999);
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.choose_date),
                 Toast.LENGTH_SHORT)
                 .show();
@@ -497,7 +497,17 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         private Boolean operateRegistering(User user) {
             ///TODO: Write the registering code of the ContentProvider etc.
             //
-            //...
+            if (false) {
+
+                //if the user created and details are correct
+                //-the register proccess was successful login with the new user
+                Intent _userPanel = new Intent(context, UserPanel.class);
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+
+                startActivity(_userPanel);
+                finish();       //Block back request to this page by destroy it
+            }
             return false;
         }
 

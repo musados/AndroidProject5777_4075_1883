@@ -19,20 +19,22 @@ public interface IBackEnd {
     int addUser(ContentValues user);
     int addBussines(ContentValues bussines);
     int addActivity(ContentValues activity);
-    //int addAdapter(ContentValues activityAdapter);
+    int addAdapter(ContentValues activityAdapter);
 
-    boolean removeUser(int userID);
-    boolean removeBussines(int bussinessID);
-    boolean removeActivity(int activityID);
-    //boolean removeActivityAdapter(int adapterID);
+    int removeUser(int userID);
+    int removeBussines(int bussinessID);
+    int removeActivity(int activityID);
+    int removeActivityAdapter(int adapterID);
 
     boolean updateUser(int userID, ContentValues values);
     boolean updateBusiness(int bussinessID, ContentValues values);
     boolean updateActivity(int activityID, ContentValues values);
+    boolean updateActivityAdapter(int adapterID, ContentValues values);
 
     Cursor getUsers();
     Cursor getBusiness();
     Cursor getActivities();
+    Cursor getAdapters();
 
     boolean isActivitiesChanged();
     boolean isBussinessChanged();

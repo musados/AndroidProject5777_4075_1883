@@ -55,4 +55,5 @@
 
     <string name="choose_date">Select date</string>
     <string name="saved_user_cleared">Cleared</string>
+    <string name="flow_direction">ltr</string>
 </resources>

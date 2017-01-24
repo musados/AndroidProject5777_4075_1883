@@ -49,18 +49,28 @@ public class DBS_BackEnd implements IBackEnd {
     }
 
     @Override
-    public boolean removeUser(int userID) {
-        return false;
+    public int addAdapter(ContentValues activityAdapter) {
+        return 0;
     }
 
     @Override
-    public boolean removeBussines(int bussinessID) {
-        return false;
+    public int removeUser(int userID) {
+        return 0;
     }
 
     @Override
-    public boolean removeActivity(int activityID) {
-        return false;
+    public int removeBussines(int bussinessID) {
+        return 0;
+    }
+
+    @Override
+    public int removeActivity(int activityID) {
+        return 0;
+    }
+
+    @Override
+    public int removeActivityAdapter(int adapterID) {
+        return 0;
     }
 
     @Override
@@ -79,6 +89,11 @@ public class DBS_BackEnd implements IBackEnd {
     }
 
     @Override
+    public boolean updateActivityAdapter(int adapterID, ContentValues values) {
+        return false;
+    }
+
+    @Override
     public Cursor getUsers() {
         return null;
     }
@@ -90,6 +105,11 @@ public class DBS_BackEnd implements IBackEnd {
 
     @Override
     public Cursor getActivities() {
+        return null;
+    }
+
+    @Override
+    public Cursor getAdapters() {
         return null;
     }
 

@@ -2,8 +2,18 @@ package com.siduron.java.iTravel.model.datasource;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.siduron.java.iTravel.model.backend.IBackEnd;
+import com.siduron.java.iTravel.model.datasource.Tools;
+import com.siduron.java.iTravel.model.datasource.iContract.UserFields;
+import com.siduron.java.iTravel.model.entities.Activity;
+import com.siduron.java.iTravel.model.entities.ActivityAdapter;
+import com.siduron.java.iTravel.model.entities.Bussiness;
+import com.siduron.java.iTravel.model.entities.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by musad on 17/01/2017.
@@ -11,7 +21,10 @@ import com.siduron.java.iTravel.model.backend.IBackEnd;
 
 public class List_BackEnd implements IBackEnd {
 
-    static List_BackEnd Instance = new List_BackEnd();
+    //Signleton instance
+    private static List_BackEnd Instance = new List_BackEnd();
+
+    private static String TAG="List Backend";
 
 
     /**
@@ -29,50 +42,208 @@ public class List_BackEnd implements IBackEnd {
     private List_BackEnd()
     {}
 
+    private static List<User> usersList=new ArrayList<User>();
+    private static List<Bussiness> bussinessList=new ArrayList<Bussiness>();
+    private static List<Activity> activityList=new ArrayList<Activity>();
+    private static List<ActivityAdapter> activityAdapterList=new ArrayList<ActivityAdapter>();
+
+    //Add methods
     @Override
-    public int addUser(ContentValues user) {
-        return 0;
+    public int addUser(ContentValues user)
+    {
+        try {
+            User temp = Tools.ContentValuesToUser(user);
+            usersList.add(temp);
+            return 1;
+        }
+        catch (Exception e) {
+            Log.i(TAG,"Field to add user");
+            return 0;
+        }
     }
 
     @Override
     public int addBussines(ContentValues bussines) {
-        return 0;
+        try {
+            Bussiness temp = Tools.ContentValuesToBussiness(bussines);
+            bussinessList.add(temp);
+            return 1;
+        } catch (Exception e) {
+            Log.i(TAG, "Field to add bussiness");
+            return 0;
+        }
     }
 
     @Override
     public int addActivity(ContentValues activity) {
+        try {
+            Activity temp = Tools.ContentValuesToActivity(activity);
+            activityList.add(temp);
+            return 1;
+        } catch (Exception e) {
+            Log.i(TAG, "Field to add activity");
+            return 0;
+        }
+    }
+
+    @Override
+    public int addAdapter(ContentValues activityAdapter) {
+        try {
+            ActivityAdapter temp = Tools.ContentValuesToActivityAdapter(activityAdapter);
+            activityAdapterList.add(temp);
+            return 1;
+        } catch (Exception e) {
+            Log.i(TAG, "Field to add adapter");
+            return 0;
+        }
+    }
+
+    //Remove methods
+    @Override
+    public int removeUser(int userID) {
+        boolean removed = false;
+        for (User item : usersList) {
+            if (item.getId() == userID)
+                removed = usersList.remove(item);
+        }
+        if (removed)
+            return 1;
         return 0;
     }
 
     @Override
-    public boolean removeUser(int userID) {
-        return false;
+    public int removeBussines(int bussinessID) {
+
+        boolean removed = false;
+        for (Bussiness item : bussinessList) {
+            if (item.getId() == bussinessID)
+                removed = bussinessList.remove(item);
+        }
+        if (removed)
+            return 1;
+        return 0;
     }
 
     @Override
-    public boolean removeBussines(int bussinessID) {
-        return false;
+    public int removeActivity(int activityID) {
+
+        boolean removed = false;
+        for (Activity item : activityList) {
+            if (item.getId() == activityID)
+                removed = usersList.remove(item);
+        }
+        if (removed)
+            return 1;
+        return 0;
     }
 
     @Override
-    public boolean removeActivity(int activityID) {
-        return false;
+    public int removeActivityAdapter(int adapterID) {
+
+        boolean removed = false;
+        for (ActivityAdapter item : activityAdapterList) {
+            if (item.getID() == adapterID)
+                removed = usersList.remove(item);
+        }
+        if (removed)
+            return 1;
+        return 0;
     }
+
+
+    //Update methods
 
     @Override
     public boolean updateUser(int userID, ContentValues values) {
+        boolean found=false;
+
+        for (User item:usersList)
+        {
+            if(item.getId()==userID)
+            {
+                User temp=Tools.ContentValuesToUser(values);
+                int index=usersList.indexOf(item);
+                found = usersList.remove(item);
+                if (found) {
+                    usersList.add(index, temp);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean updateBusiness(int bussinessID, ContentValues values) {
+
+        boolean found=false;
+
+        for (Bussiness item:bussinessList)
+        {
+            if(item.getId()==bussinessID)
+            {
+                Bussiness temp=Tools.ContentValuesToBussiness(values);
+                int index=bussinessList.indexOf(item);
+                found = bussinessList.remove(item);
+                if (found) {
+                    bussinessList.add(index, temp);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean updateActivity(int activityID, ContentValues values) {
+
+        boolean found=false;
+
+        for (Activity item:activityList)
+        {
+            if(item.getId()==activityID)
+            {
+                Activity temp=Tools.ContentValuesToActivity(values);
+                int index=activityList.indexOf(item);
+                found = activityList.remove(item);
+                if (found) {
+                    activityList.add(index, temp);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
         return false;
     }
+
+    @Override
+    public boolean updateActivityAdapter(int adapterID, ContentValues values) {
+
+        boolean found=false;
+
+        for (ActivityAdapter item:activityAdapterList)
+        {
+            if(item.getID()==adapterID)
+            {
+                ActivityAdapter temp=Tools.ContentValuesToActivityAdapter(values);
+                int index=activityAdapterList.indexOf(item);
+                found = activityAdapterList.remove(item);
+                if (found) {
+                    activityAdapterList.add(index, temp);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public Cursor getUsers() {
@@ -88,6 +259,12 @@ public class List_BackEnd implements IBackEnd {
     public Cursor getActivities() {
         return null;
     }
+
+    @Override
+    public Cursor getAdapters() {
+        return null;
+    }
+
 
     @Override
     public boolean isActivitiesChanged() {

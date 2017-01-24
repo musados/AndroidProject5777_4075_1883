@@ -112,4 +112,14 @@ public class Activity {
     public void setActivityPrice(double activityPrice) {
         this.activityPrice = activityPrice;
     }
+
+
+
+    public int getBussinessID() {
+        return bussinessID;
+    }
+
+    public void setBussinessID(int bussinessID) {
+        this.bussinessID = bussinessID;
+    }
 }

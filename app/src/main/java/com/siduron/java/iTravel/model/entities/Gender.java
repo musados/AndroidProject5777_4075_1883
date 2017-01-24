@@ -13,4 +13,17 @@ public enum Gender {
     UNKNOWN,  //Default index = 0
     MALE,
     FEMALE;
+
+    public static Gender fromInt(int value) {
+        switch (value) {
+            case 0:
+                return UNKNOWN;
+            case 1:
+                return MALE;
+            case 2:
+                return FEMALE;
+            default:
+                return UNKNOWN;
+        }
+    }
 }
