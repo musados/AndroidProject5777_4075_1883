@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by musad on 19/01/2017.
  */
 
-public class Activity {
+public class Activity implements ITravelData{
 
     //Activity identification
     private int id;
@@ -125,5 +125,21 @@ public class Activity {
 
     public void setBussinessID(int bussinessID) {
         this.bussinessID = bussinessID;
+    }
+
+    @Override
+    public Object[] getRowData() {
+        return new Object[]
+                {
+                        getId(),
+                        getBussinessID(),
+                        getActivityName(),
+                        getActivityDescription(),
+                        getStartDay(),
+                        getEndDate(),
+                        getActivityCategory(),
+                        getActivitylocation(),
+                        getActivityPrice()
+                };
     }
 }

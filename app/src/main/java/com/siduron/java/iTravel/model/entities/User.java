@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by musad on 19/01/2017.
  */
 
-public class User {
+public class User implements ITravelData {
     //User account data
     private int id;
     private String username;
@@ -167,5 +167,28 @@ public class User {
 
     public String getAddress() {
         return address;
+    }
+
+
+    /**
+     * This function returns the class variables for cursor's row
+     * @return Array of the User objects (variables)
+     */
+    @Override
+    public Object[] getRowData() {
+        Object[] obj=new Object[]
+                {
+                        getId(),
+                        getUsername(),
+                        getPassword(),
+                        getFirstName(),
+                        getLastName(),
+                        getGender(),
+                        getBirthDay(),
+                        getPhone(),
+                        getAddress()
+                };
+
+        return obj;
     }
 }

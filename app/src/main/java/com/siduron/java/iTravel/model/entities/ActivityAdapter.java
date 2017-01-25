@@ -10,7 +10,7 @@ package com.siduron.java.iTravel.model.entities;
  * activity, and her creator - as bussines.
  * @author Moshe Nahari & Haim Milikovski
  */
-public class ActivityAdapter {
+public class ActivityAdapter implements ITravelData{
     private int id;
     private int activityId;
     private int bussinesId;
@@ -56,4 +56,13 @@ public class ActivityAdapter {
     public void setActivityID(int id){activityId=id;}
     public void setBussinessID(int id){bussinesId=id;}
 
+    @Override
+    public Object[] getRowData() {
+        return new Object[]
+                {
+                        getID(),
+                        getActivityID(),
+                        getBussinessID()
+                };
+    }
 }

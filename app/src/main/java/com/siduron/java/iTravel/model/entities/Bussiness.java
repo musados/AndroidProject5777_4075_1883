@@ -10,7 +10,7 @@ package com.siduron.java.iTravel.model.entities;
  * ID, name etc.
  * @author Moshe Nahari & Haim Milikovski
  */
-public class Bussiness {
+public class Bussiness implements ITravelData {
     private int id;
     private String name;
     private String phone;
@@ -67,5 +67,16 @@ public class Bussiness {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Object[] getRowData() {
+        return new Object[]
+                {
+                        getId(),
+                        getName(),
+                        getPhone(),
+                        getDescription()
+                };
     }
 }

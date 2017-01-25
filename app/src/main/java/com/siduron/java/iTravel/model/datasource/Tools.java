@@ -9,6 +9,8 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -17,13 +19,16 @@ import com.siduron.java.iTravel.model.entities.ActivityAdapter;
 import com.siduron.java.iTravel.model.entities.Bussiness;
 import com.siduron.java.iTravel.model.entities.Category;
 import com.siduron.java.iTravel.model.entities.Gender;
+import com.siduron.java.iTravel.model.entities.ITravelData;
 import com.siduron.java.iTravel.model.entities.User;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.FormatFlagsConversionMismatchException;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.preference.PreferenceManager.*;
@@ -170,6 +175,26 @@ public class Tools
         return new ActivityAdapter(id,activityId,bussinessId);
     }
 
+
+    public static <ITRavelData> Cursor listToCursor(List<ITRavelData> arrayList,Class<ITRavelData> objectClass ,String[] columns) {
+        MatrixCursor matrix = new MatrixCursor(columns);
+        if (objectClass != null && (objectClass == User.class || objectClass == Bussiness.class ||
+                objectClass == Activity.class || objectClass == ActivityAdapter.class)) {
+            try {
+
+
+                for (ITRavelData item : arrayList) {
+                    ITravelData t = (ITravelData) item;
+                    matrix.addRow(t.getRowData());
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error during casting of List<" + objectClass.toString() + "> to MatrixCursor");
+                return null;
+            }
+        }
+
+        return matrix;
+    }
 
 
 

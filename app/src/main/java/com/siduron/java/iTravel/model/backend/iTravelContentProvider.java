@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.net.Uri;
 import com.siduron.java.iTravel.model.datasource.iContract;
 import com.siduron.java.iTravel.model.datasource.iContract.UserFields;
@@ -56,23 +57,39 @@ public class iTravelContentProvider extends ContentProvider {
         return false;
     }
 
+    /**
+     * Insert implementation
+     * Returns the cursor of the DB or the list db
+     * @param uri  the uri of the type of requested objects - User, Bussiness or others
+     * @param strings the columns requested
+     * @param s Requested column query term
+     * @param strings1 the columns requested
+     * @param s1 Requested column query term
+     * @return the cursor instance
+     */
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
 
+        Cursor cursor = null;
+
         switch (uriMatcher.match(uri)) {
             case USER_CODE:
+                cursor = backend.getUsers();
                 break;
             case BUSSINESS_CODE:
+                cursor = backend.getBusiness();
                 break;
             case ACTIVITY_CODE:
+                cursor = backend.getActivities();
                 break;
             case ACTIVITY_ADAPTER_CODE:
+                cursor = backend.getAdapters();
                 break;
-            default:
-                break;
-
         }
-        return null;
+
+        //null if it was problem with the query or the result cursor if it
+        //was correct query
+        return cursor;
     }
 
     @Override

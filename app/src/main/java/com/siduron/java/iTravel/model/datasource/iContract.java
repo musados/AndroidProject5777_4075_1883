@@ -31,7 +31,8 @@ public class iContract
         public static final String PHONE = "phone";
         public static final String ADDRESS = "address";
 
-        public static final String TABLE_NAME="Users_table";
+        public static final String TABLE_NAME = "Users_table";
+        public static final String[] COLUMNS = new String[]{ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, GENDER, BIRTHDAY, PHONE, ADDRESS};
         public static final Uri USER_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
@@ -45,7 +46,8 @@ public class iContract
         public static final String PHONE = "phone";
         public static final String DESCRIPTION = "description";
 
-        public static final String TABLE_NAME="Bussiness_table";
+        public static final String TABLE_NAME = "Bussiness_table";
+        public static final String[] COLUMNS = new String[]{ID, NAME, PHONE, DESCRIPTION};
         public static final Uri BUSSINESS_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
@@ -65,6 +67,7 @@ public class iContract
         public static final String PRICE = "price";
 
         public static final String TABLE_NAME = "Activities_table";
+        public static final String[] COLUMNS = new String[]{ID, BUSSINESS_ID, NAME, DESCRIPTION, START_DATE, END_DATE, CATEGORY, LOCATION, PRICE};
         public static final Uri ACTIVITY_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
@@ -77,7 +80,8 @@ public class iContract
         public static final String ACTIVITY_ID = "activity_id";
         public static final String BUSSINESS_ID = "bussiness_id";
 
-        public static final String TABLE_NAME="Activity_adapters_table";
+        public static final String TABLE_NAME = "Activity_adapters_table";
+        public static final String[] COLUMNS = new String[]{ID, ACTIVITY_ID, BUSSINESS_ID};
         public static final Uri ACTIVITY_ADAPTER_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 

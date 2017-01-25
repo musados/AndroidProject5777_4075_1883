@@ -267,24 +267,30 @@ public class List_BackEnd implements IBackEnd {
     }
 
 
+    //Get cursor by generic method in the Tools class
+    //provides the cursor of the given list by her columns and type
+
+
     @Override
     public Cursor getUsers() {
-        return null;
+        return Tools.listToCursor(usersList,User.class,UserFields.COLUMNS);
     }
 
     @Override
     public Cursor getBusiness() {
-        return null;
+        return Tools.listToCursor(bussinessList,Bussiness.class, iContract.BussinessFields.COLUMNS);
     }
 
     @Override
     public Cursor getActivities() {
-        return null;
+
+        return Tools.listToCursor(activityList,Activity.class, iContract.ActivityFields.COLUMNS);
     }
 
     @Override
     public Cursor getAdapters() {
-        return null;
+
+        return Tools.listToCursor(activityAdapterList,ActivityAdapter.class, iContract.ActivityAdapterFields.COLUMNS);
     }
 
 
