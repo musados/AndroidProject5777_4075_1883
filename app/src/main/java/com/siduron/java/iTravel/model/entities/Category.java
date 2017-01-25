@@ -31,4 +31,24 @@ public enum Category {
                 return SHORT_TRACK;
         }
     }
+
+
+    public static Category fromString(String key) {
+        switch (key) {
+            case "SHORT_TRACK":
+                return SHORT_TRACK;
+            case "DAY_TRIP":
+                return DAY_TRIP;
+            case "GUIDED_TOUR":
+                return GUIDED_TOUR;
+            case "HOTEL":
+                return HOTEL;
+            case "WEEKEND":
+                return WEEKEND;
+            case "FAMILIS_TRIP":
+                return FAMILIS_TRIP;
+            default:
+                return SHORT_TRACK;
+        }
+    }
 }

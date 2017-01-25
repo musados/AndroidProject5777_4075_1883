@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -38,11 +39,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
+import com.siduron.java.iTravel.model.backend.iTravelContentProvider;
+import com.siduron.java.iTravel.model.datasource.Tools;
 import com.siduron.java.iTravel.model.datasource.iContract;
 import com.siduron.java.iTravel.model.entities.Gender;
 import com.siduron.java.iTravel.model.entities.User;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,6 +66,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
     private final Context context=this;
     private UserRegisteringTask registerTask=null;
+    iTravelContentProvider provider=new iTravelContentProvider();
+
+    private String TAG="Register activity";
 
     private Button Register, login;
     private AutoCompleteTextView username;
@@ -437,6 +444,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     {
         ProgressDialog dialog ;
         User user=null;
+        int result=-1;
 
         /**
          * Task CTOR
@@ -480,7 +488,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             {
                 Log.i("Registering InBackround","Sleeping");
                 // Simulate network access.
-                Thread.sleep(2000);
+                Thread.sleep(500);
                 Log.i("Registering InBackround","Awaik");
             } catch (InterruptedException e)
             {
@@ -495,19 +503,23 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
 
         private Boolean operateRegistering(User user) {
-            ///TODO: Write the registering code of the ContentProvider etc.
-            //
-            if (false) {
+            ContentValues content = Tools.UserToContentValues(user);
+            Uri uri = provider.insert(iContract.UserFields.USER_URI, content);
+            String resultId = uri.getLastPathSegment();
 
-                //if the user created and details are correct
-                //-the register proccess was successful login with the new user
-                Intent _userPanel = new Intent(context, UserPanel.class);
-                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
-                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
-
-                startActivity(_userPanel);
-                finish();       //Block back request to this page by destroy it
+            try {
+                result=Integer.parseInt(resultId);
             }
+            catch (Exception e) {
+                Log.e(TAG, "The uri:" + uri + "\nresultID:" + resultId + "\n" + e.getMessage());
+                result = -1;
+            }
+
+            if (result>=0) {
+                Log.i(TAG, "User created!\nID: " + resultId);
+                return true;
+            }
+
             return false;
         }
 
@@ -521,12 +533,26 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             Register.setEnabled(true);
             if (success)
             {
-                startActivity(new Intent(context, UserPanel.class));
+                //if the user created and details are correct
+                //-the register proccess was successful login with the new user
+                Intent _userPanel = new Intent(context, UserPanel.class);
+
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+
+                startActivity(_userPanel);
                 finish();
             }
             else
             {
-                Toast.makeText(context,"Registeration error!",Toast.LENGTH_LONG).show();
+                if(result==-2)
+                {
+                   username.setError(getResources().getString(R.string.error_username_exist));
+                    username.requestFocus();
+                }
+                Toast.makeText(context,
+                        "Registration error:\n" + getResources().getString(R.string.error_username_exist),
+                        Toast.LENGTH_LONG).show();
             }
             registerTask=null;
             Log.i("Registering post","Finished");

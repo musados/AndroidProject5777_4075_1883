@@ -26,4 +26,16 @@ public enum Gender {
                 return UNKNOWN;
         }
     }
+
+    public static Gender fromString(String key) {
+        switch (key)
+        {
+            case "MALE":
+                return MALE;
+            case "FEMALE":
+                return FEMALE;
+            default:
+                return UNKNOWN;
+        }
+    }
 }

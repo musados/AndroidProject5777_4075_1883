@@ -54,8 +54,8 @@ public class Tools
         content.put(UserFields.PASSWORD, user.getPassword());
         content.put(UserFields.FIRST_NAME, user.getFirstName());
         content.put(UserFields.LAST_NAME, user.getLastName());
-        content.put(UserFields.BIRTHDAY, user.getBirthDay().toString());
-        content.put(UserFields.GENDER, String.valueOf(user.getGender()));
+        content.put(UserFields.BIRTHDAY, dateToString(user.getBirthDay()));
+        content.put(UserFields.GENDER, user.getGender().toString());
         content.put(UserFields.PHONE, user.getPhone());
         content.put(UserFields.ADDRESS, user.getAddress());
 
@@ -79,9 +79,9 @@ public class Tools
         content.put(ActivityFields.BUSSINESS_ID, activity.getBussinessID());
         content.put(ActivityFields.NAME, activity.getActivityName());
         content.put(ActivityFields.DESCRIPTION, activity.getActivityDescription());
-        content.put(ActivityFields.START_DATE, activity.getStartDay().toString());
-        content.put(ActivityFields.END_DATE, activity.getEndDate().toString());
-        content.put(ActivityFields.CATEGORY, String.valueOf(activity.getActivityCategory()));
+        content.put(ActivityFields.START_DATE, dateToString(activity.getStartDay()));
+        content.put(ActivityFields.END_DATE, dateToString(activity.getEndDate()));
+        content.put(ActivityFields.CATEGORY, activity.getActivityCategory().toString());
         content.put(ActivityFields.LOCATION, activity.getActivitylocation());
         content.put(ActivityFields.PRICE, activity.getActivityPrice());
 
@@ -116,7 +116,7 @@ public class Tools
         String temp=user.getAsString(UserFields.BIRTHDAY);
         birth=dateFromString(temp);
 
-        gender=Gender.fromInt(user.getAsInteger(UserFields.GENDER));
+        gender=Gender.fromString(user.getAsString(UserFields.GENDER));
 
 
         //Returns the new user
@@ -148,7 +148,7 @@ public class Tools
         name = activity.getAsString(ActivityFields.NAME);
         description = activity.getAsString(ActivityFields.DESCRIPTION);
         location = activity.getAsString(ActivityFields.LOCATION);
-        category = Category.fromInt(activity.getAsInteger(ActivityFields.CATEGORY));
+        category = Category.fromString(activity.getAsString(ActivityFields.CATEGORY));
         price = activity.getAsDouble(ActivityFields.PRICE);
 
         String temp = activity.getAsString(ActivityFields.START_DATE);
@@ -181,6 +181,7 @@ public class Tools
     private static Date dateFromString(String dateText)
     {
         Date date=null;
+        Log.i(TAG,"Trying to parse: "+dateText);
 
         if(dateText!=null&&!dateText.equals("")) {
             try {
@@ -196,5 +197,18 @@ public class Tools
             date=new Date();
 
         return date;
+    }
+
+    private static String dateToString(Date date) {
+        String text;
+        Log.i(TAG, "Trying to parse: " + date.toString());
+
+        if (date != null) {
+            DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+            text = format.format(date);
+        } else
+            text = "1/01/1900";
+
+        return text;
     }
 }

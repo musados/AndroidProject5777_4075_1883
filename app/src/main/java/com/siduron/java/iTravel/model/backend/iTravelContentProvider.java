@@ -28,11 +28,14 @@ public class iTravelContentProvider extends ContentProvider {
 
 
     IBackEnd backend = BackendFactor.getIBackend(DBType.LIST);
+
+    private static final String TAG = "iTravel Provider";
+
     static final UriMatcher uriMatcher;//=new UriMatcher(UriMatcher.NO_MATCH);
- static final int USER_CODE=1,
-                  BUSSINESS_CODE=2,
-                  ACTIVITY_CODE=3,
-                  ACTIVITY_ADAPTER_CODE=4;
+    static final int USER_CODE = 1,
+            BUSSINESS_CODE = 2,
+            ACTIVITY_CODE = 3,
+            ACTIVITY_ADAPTER_CODE = 4;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -56,8 +59,7 @@ public class iTravelContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
 
-        switch (uriMatcher.match(uri))
-        {
+        switch (uriMatcher.match(uri)) {
             case USER_CODE:
                 break;
             case BUSSINESS_CODE:
@@ -81,11 +83,10 @@ public class iTravelContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
 
-        Uri result=null;
-        int resultId=-1;
+        Uri result = null;
+        int resultId = -1;
 
-        switch (uriMatcher.match(uri))
-        {
+        switch (uriMatcher.match(uri)) {
             case USER_CODE:
                 resultId = backend.addUser(contentValues);
                 break;
@@ -103,16 +104,17 @@ public class iTravelContentProvider extends ContentProvider {
 
         }
 
-        result=Uri.parse(uri+"/"+resultId);
+        Log.i(TAG, uri.getLastPathSegment() + "Added - his Id is:" + resultId);
+
+        result = Uri.parse(uri + "/" + resultId);
 
         return result;
     }
 
     @Override
     public int delete(Uri uri, String s, String[] strings) {
-        int count=0;
-        switch (uriMatcher.match(uri))
-        {
+        int count = 0;
+        switch (uriMatcher.match(uri)) {
             case USER_CODE:
                 break;
             case BUSSINESS_CODE:
@@ -131,8 +133,7 @@ public class iTravelContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        switch (uriMatcher.match(uri))
-        {
+        switch (uriMatcher.match(uri)) {
             case USER_CODE:
                 break;
             case BUSSINESS_CODE:

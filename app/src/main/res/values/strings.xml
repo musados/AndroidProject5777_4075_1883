@@ -10,6 +10,7 @@
     <string name="register_activity_login">Register</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">The password must contain an least 8 characters</string>
+    <string name="error_username_exist">Choose another user name</string>
     <string name="error_invalid_confirm_password">The passwords not match</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -50,6 +51,7 @@
     <string name="have_account_login">Already have an account?</string>
     <string name="have_not_account_register">Do not have an account?</string>
 
+    <string name="login_proccess_title">Trying to login</string>
     <string name="registering_proccess_title">Trying to register</string>
     <string name="proccess_running_wait">Pease Wait...</string>
 

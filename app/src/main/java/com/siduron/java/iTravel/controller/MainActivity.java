@@ -262,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private class UserLoginTask extends AsyncTask<Void,Void,Boolean>
     {
+        private String TAG="User Login Task";
         ProgressDialog dialog ;
         String user="";
         String pass="";
@@ -282,33 +283,33 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Log.i("Registering Pre Task", "Starting progress");
+            Log.i(TAG, "Starting pre progress");
             login.setEnabled(false);
             dialog=  ProgressDialog.show(contex,
                     getResources().getString(R.string.registering_proccess_title),
                     getResources().getString(R.string.proccess_running_wait));
-            Log.i("Registering Pre Task", "Progress started");
+            Log.i(TAG, "Pre progress started");
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
             try
             {
-                Log.i("Registering InBackround","Sleeping");
+                Log.i(TAG,"Do in background - Sleeping");
                 // Simulate network access.
-                Thread.sleep(2000);
-                Log.i("Registering InBackround","Awaik");
+                Thread.sleep(500);
+                Log.i(TAG,"Do in background - Awaik");
 
                 //Login
-                Log.i("Registering InBackround","Performing registration...");
+                Log.i(TAG,"Do in background - Performing registration...");
                 return operateLogin(user,pass);
             } catch (InterruptedException e)
             {
-                Log.i("Registering InBackround","Finished in error"+e.getMessage());
+                Log.i(TAG,"Do in background - Finished in error"+e.getMessage());
             }
             catch (Exception ge)
             {
-                Log.i("Registering InBackround","Finished in error"+ge.getMessage());
+                Log.i(TAG,"Do in background - Finished in error"+ge.getMessage());
                 return false;
             }
             return true;

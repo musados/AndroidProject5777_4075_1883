@@ -65,6 +65,13 @@ public class List_BackEnd implements IBackEnd {
         try {
             User temp = Tools.ContentValuesToUser(user);
             temp.setId(++userIndex);
+            for(User item:usersList)
+            {
+                if(item.getId()==temp.getId()||item.getUsername().equals(temp.getUsername())) {
+                    Log.e(TAG,"The user name is exist! choose another!");
+                    return -2;
+                }
+            }
             usersList.add(temp);
             return userIndex;
         }
