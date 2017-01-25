@@ -23,6 +23,10 @@ public class Activity {
 
     private double activityPrice;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      * CTOR takes all the Activity class's details
      * @param id0

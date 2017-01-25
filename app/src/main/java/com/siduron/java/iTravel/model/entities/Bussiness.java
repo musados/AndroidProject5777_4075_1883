@@ -37,6 +37,10 @@ public class Bussiness {
     //Setters and Getters methods
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

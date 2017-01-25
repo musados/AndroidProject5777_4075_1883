@@ -81,25 +81,31 @@ public class iTravelContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
 
+        Uri result=null;
+        int resultId=-1;
+
         switch (uriMatcher.match(uri))
         {
             case USER_CODE:
-                backend.addUser(contentValues);
+                resultId = backend.addUser(contentValues);
                 break;
             case BUSSINESS_CODE:
-                backend.addBussines(contentValues);
+                resultId = backend.addBussines(contentValues);
                 break;
             case ACTIVITY_CODE:
-                backend.addActivity(contentValues);
+                resultId = backend.addActivity(contentValues);
                 break;
             case ACTIVITY_ADAPTER_CODE:
-                backend.addAdapter(contentValues);
+                resultId = backend.addAdapter(contentValues);
                 break;
             default:
                 break;
 
         }
-        return null;
+
+        result=Uri.parse(uri+"/"+resultId);
+
+        return result;
     }
 
     @Override

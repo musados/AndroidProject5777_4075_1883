@@ -95,6 +95,10 @@ public class User {
 
     //Set methods
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

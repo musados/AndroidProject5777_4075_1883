@@ -19,6 +19,11 @@ import java.util.List;
  * Created by musad on 17/01/2017.
  */
 
+/**
+ *IBackend implementation of List DB
+ *
+ * @author Moshe Nahari & Haim Milikovski
+ */
 public class List_BackEnd implements IBackEnd {
 
     //Signleton instance
@@ -31,7 +36,6 @@ public class List_BackEnd implements IBackEnd {
      * Singleton provider - get method
      *
      * @return "Instace" of the class  - List_BackEnd class
-     * @author Moshe Nahari & Haim Milikovski
      */
     public static List_BackEnd getInstance(){ return Instance;}
 
@@ -41,6 +45,13 @@ public class List_BackEnd implements IBackEnd {
      */
     private List_BackEnd()
     {}
+
+    //When you add instance to one list the id will be from these
+    //Variables
+    private static int userIndex=0;
+    private static int bussinessIndex=0;
+    private static int activityIndex=0;
+    private static int adapterIndex=0;
 
     private static List<User> usersList=new ArrayList<User>();
     private static List<Bussiness> bussinessList=new ArrayList<Bussiness>();
@@ -53,12 +64,13 @@ public class List_BackEnd implements IBackEnd {
     {
         try {
             User temp = Tools.ContentValuesToUser(user);
+            temp.setId(++userIndex);
             usersList.add(temp);
-            return 1;
+            return userIndex;
         }
         catch (Exception e) {
             Log.i(TAG,"Field to add user");
-            return 0;
+            return -1;
         }
     }
 
@@ -66,11 +78,12 @@ public class List_BackEnd implements IBackEnd {
     public int addBussines(ContentValues bussines) {
         try {
             Bussiness temp = Tools.ContentValuesToBussiness(bussines);
+            temp.setId(++bussinessIndex);
             bussinessList.add(temp);
-            return 1;
+            return bussinessIndex;
         } catch (Exception e) {
             Log.i(TAG, "Field to add bussiness");
-            return 0;
+            return -1;
         }
     }
 
@@ -78,11 +91,12 @@ public class List_BackEnd implements IBackEnd {
     public int addActivity(ContentValues activity) {
         try {
             Activity temp = Tools.ContentValuesToActivity(activity);
+            temp.setId(++activityIndex);
             activityList.add(temp);
-            return 1;
+            return activityIndex;
         } catch (Exception e) {
             Log.i(TAG, "Field to add activity");
-            return 0;
+            return -1;
         }
     }
 
@@ -90,11 +104,12 @@ public class List_BackEnd implements IBackEnd {
     public int addAdapter(ContentValues activityAdapter) {
         try {
             ActivityAdapter temp = Tools.ContentValuesToActivityAdapter(activityAdapter);
+            temp.setId(++adapterIndex);
             activityAdapterList.add(temp);
-            return 1;
+            return adapterIndex;
         } catch (Exception e) {
             Log.i(TAG, "Field to add adapter");
-            return 0;
+            return -1;
         }
     }
 

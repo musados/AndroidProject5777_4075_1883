@@ -43,6 +43,10 @@ public class ActivityAdapter {
 
     //Get methods
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getID(){return id;}
     public int getActivityID(){return  activityId;}
     public int getBussinessID(){return bussinesId;}
