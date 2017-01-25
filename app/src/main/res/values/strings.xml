@@ -12,7 +12,8 @@
     <string name="error_invalid_password">The password must contain an least 8 characters</string>
     <string name="error_username_exist">Choose another user name</string>
     <string name="error_invalid_confirm_password">The passwords not match</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_password">The username or password are incorrect</string>
+    <string name="login_proccess_error">Cannot perform login proccess try again later.</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_age_must_more_9">Your age is not allowed!</string>
     <string name="error_phone_format">Enter valid phone number-10 digits for the local format and maximum 12 digits for the universal format e.g. +97250-000-0000.</string>

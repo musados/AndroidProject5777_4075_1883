@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
@@ -575,10 +576,15 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     }
 
     private boolean mayRequestContacts() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+
+        Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
+
+        if (Build.VERSION.SDK_INT< Build.VERSION_CODES.M) {
+            Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
             return true;
         }
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG,"Permission given?: "+checkSelfPermission(READ_CONTACTS));
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -634,6 +640,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+
     }
 
     @Override
@@ -645,6 +652,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             cursor.moveToNext();
         }
 
+        Log.i("Contacts Cursor size: ",""+cursor.getCount()+"\nemails count: "+emails.size());
         addEmailsToAutoComplete(emails);
     }
 

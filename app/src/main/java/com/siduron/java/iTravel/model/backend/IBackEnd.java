@@ -9,6 +9,8 @@ import com.siduron.java.iTravel.model.entities.ActivityAdapter;
 import com.siduron.java.iTravel.model.entities.Bussiness;
 import com.siduron.java.iTravel.model.entities.User;
 
+import java.util.Date;
+
 
 /**
  * Created by musad on 17/01/2017.
@@ -36,6 +38,6 @@ public interface IBackEnd {
     Cursor getActivities();
     Cursor getAdapters();
 
-    boolean isActivitiesChanged();
-    boolean isBussinessChanged();
+    boolean isActivitiesChanged(Date date);
+    boolean isBussinessChanged(Date date);
 }

@@ -5,6 +5,8 @@ import android.database.Cursor;
 
 import com.siduron.java.iTravel.model.backend.IBackEnd;
 
+import java.util.Date;
+
 /**
  * Created by musad on 17/01/2017.
  */
@@ -114,12 +116,12 @@ public class DBS_BackEnd implements IBackEnd {
     }
 
     @Override
-    public boolean isActivitiesChanged() {
+    public boolean isActivitiesChanged(Date date) {
         return false;
     }
 
     @Override
-    public boolean isBussinessChanged() {
+    public boolean isBussinessChanged(Date date) {
         return false;
     }
 }

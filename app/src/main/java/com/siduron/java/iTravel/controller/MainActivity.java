@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.siduron.java.iTravel.model.backend.iTravelContentProvider;
+import com.siduron.java.iTravel.model.datasource.iContract;
 import com.siduron.java.iTravel.model.datasource.iContract.LoginUserKeys;
 import com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference;
 
@@ -263,6 +266,11 @@ public class MainActivity extends AppCompatActivity {
     private class UserLoginTask extends AsyncTask<Void,Void,Boolean>
     {
         private String TAG="User Login Task";
+        String LoginError="";
+
+        //The ContentProvider
+        iTravelContentProvider provider=new iTravelContentProvider();
+
         ProgressDialog dialog ;
         String user="";
         String pass="";
@@ -286,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "Starting pre progress");
             login.setEnabled(false);
             dialog=  ProgressDialog.show(contex,
-                    getResources().getString(R.string.registering_proccess_title),
+                    getResources().getString(R.string.title_activity_login),
                     getResources().getString(R.string.proccess_running_wait));
             Log.i(TAG, "Pre progress started");
         }
@@ -319,41 +327,58 @@ public class MainActivity extends AppCompatActivity {
         private Boolean operateLogin(String username,String password) {
 
             try {
+                Cursor usersCursor = provider.query(iContract.UserFields.USER_URI,null,null,null,null);
+
+                while (usersCursor.moveToNext()) {
+                    //If the user name is exist and the password is correct return true
+                    if (usersCursor.getString(1).equals(username) && usersCursor.getString(2).equals(password))
+                        return true;
+                }
+
+                //else if the user name is not exist - set generic message about the username and the password
+                LoginError=getResources().getString(R.string.error_incorrect_password);
+                return false;
             }
             catch (Exception e) {
-                Log.e("Saving last user","Unsuccessful"+e.getMessage());
+                Log.e("Saving last user","Unsuccessful"+e.getMessage());//else if the user name is not exist - set generic message about the username and the password
+                LoginError=getResources().getString(R.string.login_proccess_error);
+                return false;
             }
-            ///TODO: Write the registering code of the ContentProvider etc.
-            //
-            //...
-            return false;
+
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            logStep("Registering post","Started",'i');
+            logStep(TAG,"Started",'i');
             //Hide the dialog
             dialog.dismiss();
+            Log.i(TAG,"dialog hidded");
 
-            logStep("IsChecked", String.valueOf(check),'i');
 
             if (check) {
                 saveLastConnectedUser(user, pass,true );
-                logStep("Saving", "User saved",'i');
+                logStep(TAG , "User saved",'i');
             }
 
-            Log.i("Registering post","dialog hidded");
             login.setEnabled(true);
             if (success)
             {
+                //if the user created and details are correct
+                //-the register proccess was successful login with the new user
+                Intent _userPanel = new Intent(contex, UserPanel.class);
+
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
+                _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+
                 startActivity(new Intent(contex, UserPanel.class));
             }
             else
             {
-                Toast.makeText(contex,"Registeration error!",Toast.LENGTH_LONG).show();
+                password.setError(LoginError);
+                password.requestFocus();
             }
             loginTask=null;
-            logStep("Registering post","Finished",'i');
+            logStep(TAG,"Finished",'i');
         }
 
         @Override

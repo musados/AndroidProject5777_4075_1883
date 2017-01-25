@@ -30,6 +30,7 @@ public class iTravelContentProvider extends ContentProvider {
 
     IBackEnd backend = BackendFactor.getIBackend(DBType.LIST);
 
+
     private static final String TAG = "iTravel Provider";
 
     static final UriMatcher uriMatcher;//=new UriMatcher(UriMatcher.NO_MATCH);
@@ -75,6 +76,7 @@ public class iTravelContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case USER_CODE:
                 cursor = backend.getUsers();
+                //cursor.setNotificationUri(getContext().getContentResolver(),uri);
                 break;
             case BUSSINESS_CODE:
                 cursor = backend.getBusiness();
@@ -85,8 +87,11 @@ public class iTravelContentProvider extends ContentProvider {
             case ACTIVITY_ADAPTER_CODE:
                 cursor = backend.getAdapters();
                 break;
+            default:
+                throw new IllegalArgumentException(TAG+" Unknown Uri received!");
         }
 
+        Log.i(TAG,"Cursor list columns count: "+String.valueOf(cursor.getColumnCount())+"\nCursor rows count: "+cursor.getCount());
         //null if it was problem with the query or the result cursor if it
         //was correct query
         return cursor;
