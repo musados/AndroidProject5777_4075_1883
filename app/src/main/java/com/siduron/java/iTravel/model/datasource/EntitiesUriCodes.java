@@ -1,4 +1,4 @@
-package com.siduron.java.iTravel.model.datasource;
+package com.siduron.java.iTravel.Model.DataSource;
 
 /**
  * Created by musad on 24/01/2017.

@@ -1,4 +1,4 @@
-package com.siduron.java.iTravel.controller;
+package com.siduron.java.iTravel.Controller;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,8 +1,8 @@
-package com.siduron.java.iTravel.model.backend;
+package com.siduron.java.iTravel.Model.Backend;
 
-import com.siduron.java.iTravel.model.datasource.DBS_BackEnd;
-import com.siduron.java.iTravel.model.datasource.List_BackEnd;
-import com.siduron.java.iTravel.model.entities.DBType;
+import com.siduron.java.iTravel.Model.DataSource.DBS_BackEnd;
+import com.siduron.java.iTravel.Model.DataSource.List_BackEnd;
+import com.siduron.java.iTravel.Model.Entities.DBType;
 
 /**
  * Created by musad on 20/01/2017.

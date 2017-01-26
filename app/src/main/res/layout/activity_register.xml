@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/lightYellow"
-    tools:context="com.siduron.java.iTravel.controller.RegisterActivity"
+    tools:context="com.siduron.java.iTravel.Controller.RegisterActivity"
     android:layoutDirection="ltr">
 
     <!-- Scroller -->

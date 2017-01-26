@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.siduron.java.iTravel.controller.SplashScreen"
+            android:name="com.siduron.java.iTravel.Controller.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,24 +23,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.siduron.java.iTravel.controller.MainActivity"
+            android:name="com.siduron.java.iTravel.Controller.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.siduron.java.iTravel.controller.RegisterActivity"
+            android:name="com.siduron.java.iTravel.Controller.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.siduron.java.iTravel.controller.LoginActivity"
+            android:name="com.siduron.java.iTravel.Controller.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name="com.siduron.java.iTravel.controller.UserLoginActivity"
+            android:name="com.siduron.java.iTravel.Controller.UserLoginActivity"
             android:label="@string/title_activity_login" />
 
         <provider
-            android:name="com.siduron.java.iTravel.model.backend.iTravelContentProvider"
+            android:name="com.siduron.java.iTravel.Model.Backend.iTravelContentProvider"
             android:authorities=".iTravelContentProvider"
             android:exported="true" />
 
-        <activity android:name="com.siduron.java.iTravel.controller.UserPanel"></activity>
+        <activity android:name="com.siduron.java.iTravel.Controller.UserPanel"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.siduron.java.iTravel.model.entities;
+package com.siduron.java.iTravel.Model.Entities;
 
 /**
  * Created by musad on 19/01/2017.

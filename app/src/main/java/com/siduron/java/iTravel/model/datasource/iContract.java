@@ -1,12 +1,10 @@
-package com.siduron.java.iTravel.model.datasource;
+package com.siduron.java.iTravel.Model.DataSource;
 
 /**
  * Created by Moshe Nahari on 20/01/2017.
  */
 
 import android.net.Uri;
-
-import java.net.URI;
 
 /**
  * This class defining the SQL tables's columns names and more
@@ -121,5 +119,6 @@ public class iContract
         private static final String KEY_BASE="com.siduron.java.iTravel";
         public static final String LOGIN_NAME_KEY=KEY_BASE+"_login_name";
         public static final String LOGIN_PASSWORD_KEY=KEY_BASE+"_login_password";
+        public static final String LOGOUT_STATUS_KEY=KEY_BASE+"_logoutStatus";
     }
 }

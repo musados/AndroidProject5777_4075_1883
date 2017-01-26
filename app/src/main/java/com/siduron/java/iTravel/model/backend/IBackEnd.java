@@ -1,13 +1,7 @@
-package com.siduron.java.iTravel.model.backend;
+package com.siduron.java.iTravel.Model.Backend;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.icu.text.DisplayContext;
-
-import com.siduron.java.iTravel.model.entities.Activity;
-import com.siduron.java.iTravel.model.entities.ActivityAdapter;
-import com.siduron.java.iTravel.model.entities.Bussiness;
-import com.siduron.java.iTravel.model.entities.User;
 
 import java.util.Date;
 

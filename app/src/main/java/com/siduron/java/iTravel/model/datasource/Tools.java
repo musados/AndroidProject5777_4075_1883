@@ -1,4 +1,4 @@
-package com.siduron.java.iTravel.model.datasource;
+package com.siduron.java.iTravel.Model.DataSource;
 
 /**
  * Created by musad on 20/01/2017.
@@ -6,35 +6,26 @@ package com.siduron.java.iTravel.model.datasource;
 
 
 import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.siduron.java.iTravel.model.entities.Activity;
-import com.siduron.java.iTravel.model.entities.ActivityAdapter;
-import com.siduron.java.iTravel.model.entities.Bussiness;
-import com.siduron.java.iTravel.model.entities.Category;
-import com.siduron.java.iTravel.model.entities.Gender;
-import com.siduron.java.iTravel.model.entities.ITravelData;
-import com.siduron.java.iTravel.model.entities.User;
+import com.siduron.java.iTravel.Model.Entities.Activity;
+import com.siduron.java.iTravel.Model.Entities.ActivityAdapter;
+import com.siduron.java.iTravel.Model.Entities.Bussiness;
+import com.siduron.java.iTravel.Model.Entities.Category;
+import com.siduron.java.iTravel.Model.Entities.Gender;
+import com.siduron.java.iTravel.Model.Entities.ITravelData;
+import com.siduron.java.iTravel.Model.Entities.User;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
-import static android.preference.PreferenceManager.*;
-import static com.siduron.java.iTravel.model.datasource.iContract.*;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.SHARED_NAME;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.*;
 
 /**
  *

@@ -1,24 +1,20 @@
-package com.siduron.java.iTravel.model.backend;
+package com.siduron.java.iTravel.Model.Backend;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.net.Uri;
-import com.siduron.java.iTravel.model.datasource.iContract;
-import com.siduron.java.iTravel.model.datasource.iContract.UserFields;
-import com.siduron.java.iTravel.model.datasource.iContract.BussinessFields;
-import com.siduron.java.iTravel.model.datasource.iContract.ActivityFields;
-import com.siduron.java.iTravel.model.datasource.iContract.ActivityAdapterFields;
+import com.siduron.java.iTravel.Model.DataSource.iContract;
+import com.siduron.java.iTravel.Model.DataSource.iContract.UserFields;
+import com.siduron.java.iTravel.Model.DataSource.iContract.BussinessFields;
+import com.siduron.java.iTravel.Model.DataSource.iContract.ActivityFields;
+import com.siduron.java.iTravel.Model.DataSource.iContract.ActivityAdapterFields;
 
 
 import android.util.Log;
 
-import com.siduron.java.iTravel.model.datasource.iContract;
-import com.siduron.java.iTravel.model.entities.DBType;
-
-import com.siduron.java.iTravel.model.datasource.EntitiesUriCodes;
+import com.siduron.java.iTravel.Model.Entities.DBType;
 
 
 /**

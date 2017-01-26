@@ -1,9 +1,9 @@
-package com.siduron.java.iTravel.model.datasource;
+package com.siduron.java.iTravel.Model.DataSource;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.siduron.java.iTravel.model.backend.IBackEnd;
+import com.siduron.java.iTravel.Model.Backend.IBackEnd;
 
 import java.util.Date;
 

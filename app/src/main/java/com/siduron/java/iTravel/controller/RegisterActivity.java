@@ -1,4 +1,4 @@
-package com.siduron.java.iTravel.controller;
+package com.siduron.java.iTravel.Controller;
 
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
@@ -8,18 +8,13 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Address;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,26 +23,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
-import com.siduron.java.iTravel.model.backend.iTravelContentProvider;
-import com.siduron.java.iTravel.model.datasource.Tools;
-import com.siduron.java.iTravel.model.datasource.iContract;
-import com.siduron.java.iTravel.model.entities.Gender;
-import com.siduron.java.iTravel.model.entities.User;
+import com.siduron.java.iTravel.Model.Backend.iTravelContentProvider;
+import com.siduron.java.iTravel.Model.DataSource.Tools;
+import com.siduron.java.iTravel.Model.DataSource.iContract;
+import com.siduron.java.iTravel.Model.Entities.Gender;
+import com.siduron.java.iTravel.Model.Entities.User;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,9 +47,6 @@ import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.LAST_USER_NAME;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.LAST_USER_PASSWORD;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.SAVE_LAST_USER;
 
 public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     /**
@@ -579,7 +568,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
         Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
 
-        if (Build.VERSION.SDK_INT< Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
             return true;
         }

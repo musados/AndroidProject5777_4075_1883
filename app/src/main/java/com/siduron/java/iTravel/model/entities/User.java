@@ -1,10 +1,8 @@
-package com.siduron.java.iTravel.model.entities;
+package com.siduron.java.iTravel.Model.Entities;
 
 import android.util.Log;
 
 import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

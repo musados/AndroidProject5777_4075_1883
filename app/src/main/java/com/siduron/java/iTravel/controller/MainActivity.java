@@ -1,42 +1,32 @@
-package com.siduron.java.iTravel.controller;
+package com.siduron.java.iTravel.Controller;
 
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.siduron.java.iTravel.model.backend.iTravelContentProvider;
-import com.siduron.java.iTravel.model.datasource.iContract;
-import com.siduron.java.iTravel.model.datasource.iContract.LoginUserKeys;
-import com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference;
+import com.siduron.java.iTravel.Model.Backend.iTravelContentProvider;
+import com.siduron.java.iTravel.Model.DataSource.iContract;
+import com.siduron.java.iTravel.Model.DataSource.iContract.LoginUserKeys;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
-import com.siduron.java.iTravel.model.entities.Gender;
-import com.siduron.java.iTravel.model.entities.User;
 
-import java.util.Date;
-
-import javax.security.auth.login.LoginException;
-
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.LAST_USER_NAME;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.LAST_USER_PASSWORD;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.SAVE_LAST_USER;
-import static com.siduron.java.iTravel.model.datasource.iContract.iSharedPreference.SHARED_NAME;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_PASSWORD;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SAVE_LAST_USER;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SHARED_NAME;
 
 public class MainActivity extends AppCompatActivity {
     final Context contex=this;
@@ -61,7 +51,28 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences =  getSharedPreferences(SHARED_NAME,MODE_PRIVATE); //PreferenceManager.getDefaultSharedPreferences(this);
         sharedEditor = sharedPreferences.edit();
 
+
+        //Check if the user was made logout before he come to this activity
+        boolean logout = checkLogout();
+        if(logout) {
+            clearLastUser();
+        }
+
+        loginBySavedLastUser();
+
         setButtonsListeners();
+    }
+
+    /**
+     * Login by saved last user name (that was logged in)
+     *
+     */
+    private void loginBySavedLastUser() {
+        String savedName = sharedPreferences.getString(LoginUserKeys.LOGIN_NAME_KEY, null);
+        String savedPassword = sharedPreferences.getString(LoginUserKeys.LOGIN_PASSWORD_KEY, null);
+
+        if (savedName != null && savedPassword != null)
+            new UserLoginTask(savedName, savedPassword, true).execute((Void) null);
     }
 
     @Override
@@ -79,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         loadLastConnectedUser();
+
+        boolean logout = checkLogout();
+        if(logout) {
+            clearLastUser();
+        }
+    }
+
+
+
+    /**
+     * Checks if the user made logut
+     * @return the logout shared reference value as boolean
+     */
+    private boolean checkLogout() {
+        return getIntent().getBooleanExtra(LoginUserKeys.LOGOUT_STATUS_KEY,false);
     }
 
     /**
@@ -206,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(contex, RegisterActivity.class);
 
+                password.setError(null);
                 it.putExtra(LoginUserKeys.LOGIN_NAME_KEY,username.getText().toString());
                 it.putExtra(LoginUserKeys.LOGIN_PASSWORD_KEY,password.getText().toString());
 
@@ -363,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
             login.setEnabled(true);
             if (success)
             {
+                password.setError(null);
                 //if the user created and details are correct
                 //-the register proccess was successful login with the new user
                 Intent _userPanel = new Intent(contex, UserPanel.class);
@@ -370,7 +398,8 @@ public class MainActivity extends AppCompatActivity {
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
 
-                startActivity(new Intent(contex, UserPanel.class));
+                startActivity(_userPanel);
+                finish();
             }
             else
             {
