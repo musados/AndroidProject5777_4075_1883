@@ -214,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), getResources().getString(R.string.choose_date),
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.minimum_age_toast_message),
                 Toast.LENGTH_SHORT)
                 .show();
     }
@@ -524,11 +524,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             if (success)
             {
                 //if the user created and details are correct
-                //-the register proccess was successful login with the new user
+                //-the register proccess was successful login with the new userIntent
                 Intent _userPanel = new Intent(context, UserPanel.class);
 
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+
+                _userPanel.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                _userPanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(_userPanel);
                 finish();
@@ -565,15 +568,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     }
 
     private boolean mayRequestContacts() {
-
-        Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            Log.e(TAG,"Build version is: "+Build.VERSION.SDK_INT);
             return true;
         }
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG,"Permission given?: "+checkSelfPermission(READ_CONTACTS));
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -590,6 +588,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         }
         return false;
     }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {

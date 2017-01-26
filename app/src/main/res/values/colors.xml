@@ -14,4 +14,5 @@
     <color name="yellow">#5fdfaf00</color>
     <color name="lightYellow">#fffffcc0</color>
     <color name="strokeTransparentBlack">#24000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

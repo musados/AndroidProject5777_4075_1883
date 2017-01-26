@@ -30,5 +30,29 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">2dp</item>
     </style>
+    
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton">
+        <item name="android:paddingLeft">55dp</item>
+        <item name="android:paddingRight">55dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/green_round_button</item>
+    </style>
+
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@drawable/hyper_link_button</item>
+    </style>
 
 </resources>

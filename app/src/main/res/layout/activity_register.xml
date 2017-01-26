@@ -202,33 +202,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/birth_day"/>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <TextView
                 android:id="@+id/BirthdayText"
                 android:maxLines="1"
+                android:clickable="true"
+                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:ems="15"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:textIsSelectable="true"
-                android:background="@drawable/inputs_backgroud"
-                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"/>
+                android:text="1/01/1900"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:onClick="setDate"
+                android:background="@drawable/white_input_background"
+                android:textColor="@color/colorPrimaryDark"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/BirthPicker"
                     android:layout_width="30dp"
                     android:nextFocusDown="@+id/userPhone"
                     android:layout_height="@dimen/user_texts_inputs_height"
                     android:src="@drawable/date_picker_icon"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="0dp"
                     android:layout_marginLeft="7dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:padding="2dp"
+                    android:clickable="true"
                     android:onClick="setDate"
                     android:layout_marginBottom="@dimen/user_input_bottom_margin"
                     android:scaleType="fitCenter"
-                    android:background="@drawable/round_button"/>
-                </LinearLayout>
+                    android:background="@color/transparent"/>
+                </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -271,41 +282,42 @@
 
             <Button
                 android:id="@+id/RegisterButton"
+                android:text="@string/register"
+                android:imeActionId="@+id/RegisterButton"
+                android:imeActionLabel="@string/register"
+                android:layout_below="@id/PersonalDetailsContainer"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton"/>
+            <!--
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="55dp"
                 android:paddingLeft="55dp"
                 android:layout_marginBottom="5dp"
-                android:text="@string/register"
-                android:imeActionId="@+id/RegisterButton"
-                android:imeActionLabel="@string/register"
-                android:focusableInTouchMode="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/PersonalDetailsContainer"
-                android:background="@drawable/green_round_button"
-                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"/>
+                android:background="@drawable/green_round_button"-->
 
             <TextView
                 android:id="@+id/LoginText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:text="@string/have_account_login"
                 android:layout_below="@id/RegisterButton"
                 android:layout_centerHorizontal="true"/>
+            <!--
+                android:layout_marginBottom="5dp"-->
 
             <Button
                 android:id="@+id/LoginButton"
+                android:text="@string/log_in"
+                android:layout_below="@id/LoginText"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"/>
+            <!--
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/log_in"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:layout_marginBottom="15dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/LoginText"
-                android:background="@drawable/hyper_link_button"
-                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"/>
+                android:background="@drawable/hyper_link_button"-->
 
         </RelativeLayout>
 

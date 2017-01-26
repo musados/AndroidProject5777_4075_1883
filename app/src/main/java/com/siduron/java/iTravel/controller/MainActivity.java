@@ -10,11 +10,15 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siduron.java.iTravel.Model.Backend.iTravelContentProvider;
@@ -30,10 +34,19 @@ import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPrefere
 
 public class MainActivity extends AppCompatActivity {
     final Context contex=this;
+
+    //Show/hide login progress
+    HideProgress hideLogin;
+
+    //Login responsibles
     Button login,register;
     CheckBox checkBox;
     EditText username,password;
+
+    //Login task as AsyncTask
     private UserLoginTask loginTask=null;
+
+    //Sahred reference variables
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedEditor;
 
@@ -48,17 +61,23 @@ public class MainActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.userPassword);
         checkBox = (CheckBox) findViewById(R.id.SaveLastConnected);
-        sharedPreferences =  getSharedPreferences(SHARED_NAME,MODE_PRIVATE); //PreferenceManager.getDefaultSharedPreferences(this);
-        sharedEditor = sharedPreferences.edit();
 
+        ProgressBar loginProgress = (ProgressBar)findViewById(R.id.login_progress);
+        RelativeLayout loginForm=(RelativeLayout)findViewById(R.id.login_form);
+        TextView loginProgressText=(TextView)findViewById(R.id.login_progrees_text);
+        hideLogin=new HideProgress(loginForm,loginProgress,loginProgressText);
+
+        sharedPreferences = getSharedPreferences(SHARED_NAME,MODE_PRIVATE);
+        sharedEditor = sharedPreferences.edit();
 
         //Check if the user was made logout before he come to this activity
         boolean logout = checkLogout();
         if(logout) {
+            Log.i("Logout value",logout+"");
             clearLastUser();
         }
 
-        loginBySavedLastUser();
+        loginBySavedLastUser(!logout);
 
         setButtonsListeners();
     }
@@ -67,12 +86,18 @@ public class MainActivity extends AppCompatActivity {
      * Login by saved last user name (that was logged in)
      *
      */
-    private void loginBySavedLastUser() {
-        String savedName = sharedPreferences.getString(LoginUserKeys.LOGIN_NAME_KEY, null);
-        String savedPassword = sharedPreferences.getString(LoginUserKeys.LOGIN_PASSWORD_KEY, null);
+    private void loginBySavedLastUser(boolean login) {
+        if(login) {
+            String savedName = sharedPreferences.getString(LAST_USER_NAME, null);
+            String savedPassword = sharedPreferences.getString(LAST_USER_PASSWORD, null);
+            Log.i("Auto login info:",savedName+", "+savedPassword);
 
-        if (savedName != null && savedPassword != null)
-            new UserLoginTask(savedName, savedPassword, true).execute((Void) null);
+            //If the user and password correct saved
+            if (savedName != null && savedPassword != null) {
+                new UserLoginTask(savedName, savedPassword, true).execute((Void) null);
+                Log.w("MainActivity Auto login", "Loged on!");
+            }
+        }
     }
 
     @Override
@@ -93,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean logout = checkLogout();
         if(logout) {
+            loadLastConnectedUser();
             clearLastUser();
         }
     }
@@ -169,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     private void clearLastUser()
     {
         try {
-
+            Log.i("Shared clearing","Cleared!");
             sharedEditor.clear();
             sharedEditor.commit();
         }
@@ -188,42 +214,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String loginName = username.getText().toString();
-                String loginPassword = password.getText().toString();
-                View toFocus = null;
-                boolean cancel = false;
-
-                if (loginPassword.equals("")) {
-                    cancel = true;
-                    password.setError(getResources().getString(R.string.error_field_required));
-                    toFocus=password;
-                }
-                else if (!isValidPassword(loginPassword)) {
-                    cancel = true;
-                    password.setError(getResources().getString(R.string.error_invalid_password));
-                    toFocus = password;
-                }
-
-
-                if (loginName.equals("")) {
-                    cancel = true;
-                    username.setError(getResources().getString(R.string.error_field_required));
-                    toFocus=username;
-                }
-                else if (!isValidUsername(loginName)) {
-                    cancel = true;
-                    username.setError(getResources().getString(R.string.error_invalid_email));
-                    toFocus=username;
-                }
-
-                if(cancel)
-                    toFocus.requestFocus();
-
-                else
-                {
-                    loginTask=new UserLoginTask(loginName,loginPassword,checkBox.isChecked());
-                    loginTask.execute((Void)null);
-                }
+                tryToLogin();
 
             }
         });
@@ -252,6 +243,53 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                tryToLogin();
+                return true;
+            }
+        });
+    }
+
+    private void tryToLogin() {
+        String loginName = username.getText().toString();
+        String loginPassword = password.getText().toString();
+        View toFocus = null;
+        boolean cancel = false;
+
+        if (loginPassword.equals("")) {
+            cancel = true;
+            password.setError(getResources().getString(R.string.error_field_required));
+            toFocus=password;
+        }
+        else if (!isValidPassword(loginPassword)) {
+            cancel = true;
+            password.setError(getResources().getString(R.string.error_invalid_password));
+            toFocus = password;
+        }
+
+
+        if (loginName.equals("")) {
+            cancel = true;
+            username.setError(getResources().getString(R.string.error_field_required));
+            toFocus=username;
+        }
+        else if (!isValidUsername(loginName)) {
+            cancel = true;
+            username.setError(getResources().getString(R.string.error_invalid_email));
+            toFocus=username;
+        }
+
+        if(cancel)
+            toFocus.requestFocus();
+
+        else
+        {
+            loginTask=new UserLoginTask(loginName,loginPassword,checkBox.isChecked());
+            loginTask.execute((Void)null);
+        }
     }
 
     /**
@@ -320,9 +358,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             Log.i(TAG, "Starting pre progress");
             login.setEnabled(false);
-            dialog=  ProgressDialog.show(contex,
-                    getResources().getString(R.string.title_activity_login),
-                    getResources().getString(R.string.proccess_running_wait));
+            //dialog=  ProgressDialog.show(contex,
+                    //getResources().getString(R.string.title_activity_login),
+                    //getResources().getString(R.string.proccess_running_wait));
+
+            hideLogin.showProgress(true);
             Log.i(TAG, "Pre progress started");
         }
 
@@ -378,7 +418,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             logStep(TAG,"Started",'i');
             //Hide the dialog
-            dialog.dismiss();
+            //dialog.dismiss();
+            hideLogin.showProgress(false);
             Log.i(TAG,"dialog hidded");
 
 
@@ -412,7 +453,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onCancelled() {
-            dialog.dismiss();
+            //dialog.dismiss();
+            hideLogin.showProgress(false);
             loginTask=null;
             login.setEnabled(true);
         }

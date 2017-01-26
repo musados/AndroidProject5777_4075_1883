@@ -13,6 +13,32 @@
     android:background="@color/lightYellow"
     tools:context="com.siduron.java.iTravel.Controller.MainActivity">
 
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/login_progrees_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/login_progress"
+        android:text="@string/proccess_running_wait"
+        android:visibility="gone"/>
+
+    <!-- Login form -->
+ <RelativeLayout
+     android:id="@+id/login_form"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
@@ -27,6 +53,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/userName"
+        android:nextFocusDown="@+id/userPassword"
         android:hint="@string/user_email_name_placeholder"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/imageView"
@@ -44,17 +71,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:layout_below="@id/userName"
-        android:background="@drawable/inputs_backgroud"/>
+        android:background="@drawable/inputs_backgroud"
+        android:nextFocusDown="@+id/LoginButton"
+        android:imeActionId="@+id/LoginButton"
+        android:imeActionLabel="@string/log_in"/>/>
 
 
     <CheckBox
         android:id="@+id/SaveLastConnected"
+        android:nextFocusDown="@+id/LoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/userPassword"
         android:layout_centerHorizontal="true"
         android:hint="@string/login_checkbox"
-        android:text="@string/login_checkbox"/>
+        android:text="@string/login_checkbox"
+        android:imeActionId="@+id/LoginButton"
+        android:imeActionLabel="@string/log_in"/>
 
 
     <!-- Buttons Area -->
@@ -75,38 +108,37 @@
         <Button
             android:text="@string/log_in"
             android:layout_width="wrap_content"
-            android:paddingLeft="55dp"
-            android:paddingRight="55dp"
             android:layout_height="wrap_content"
             android:id="@+id/LoginButton"
-            android:background="@drawable/green_round_button"
-            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"/>
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
+            android:imeActionId="@+id/LoginButton"
+            android:imeActionLabel="@string/log_in"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/have_not_account_register"
-            android:padding="2dp"
             android:layout_alignParentTop="true"/>
 
         <Button
             android:text="@string/register"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:id="@+id/RegisterButton"
+            android:background="@drawable/hyper_link_button"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"
+            android:lines="1" />
+        <!--@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
+            android:layout_marginBottom="5dp"
+            android:padding="0dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:id="@+id/RegisterButton"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:layout_marginBottom="5dp"
             android:textColor="#fff"
-            android:padding="0dp"
-
-            android:background="@drawable/hyper_link_button"
-            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
-            />
+            android:paddingLeft="55dp"
+            android:paddingRight="55dp"-->
     </LinearLayout>
-
+</RelativeLayout>
 
 
 
