@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,7 +29,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +50,10 @@ import java.util.Date;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_PASSWORD;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SAVE_LAST_USER;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SHARED_NAME;
 
 public class RegisterActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     /**
@@ -60,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
     private String TAG="Register activity";
 
+    private RelativeLayout mainLayout;
     private Button Register, login;
     private AutoCompleteTextView username;
     private EditText password,
@@ -79,8 +87,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     RadioGroup radioGroup;
     Gender selectedGender=Gender.UNKNOWN;
 
-    private final String [] FAKE_LOGIN_USERS=new String[]{"musados@mail.com,Password1","foo@example.com,Password11"} ;
-    private int size;
+    //Sahred reference variables
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor sharedEditor;
 
 
     @Override
@@ -89,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.activity_register);
 
         setFieldsAsVariables();
+        setFlowDirection();
 
         populateAutoComplete();
 
@@ -100,8 +110,23 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         showDate(year, month+1, day);
 
         autoLoadLoginInfo();
+
+
+        //Load the shared references from the contex
+        sharedPreferences = getSharedPreferences(SHARED_NAME,MODE_PRIVATE);
+        sharedEditor = sharedPreferences.edit();
     }
 
+    private void setFlowDirection() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
+    }
+
+
+    /**
+     * When the user is exist in the shared references-is correct
+     * try to login
+     */
     private void autoLoadLoginInfo() {
         Intent current=getIntent();
         String _user=current.getStringExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY);
@@ -144,6 +169,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
      * Sets the buttons, text fields - all form elements variables
      */
     private void setFieldsAsVariables() {
+        //Main layout
+        mainLayout=(RelativeLayout)findViewById(R.id.activity_register);
+
         //Register and login buttons
         Register = (Button) findViewById(R.id.RegisterButton);
         login = (Button) findViewById(R.id.LoginButton);
@@ -523,6 +551,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             Register.setEnabled(true);
             if (success)
             {
+                //Save the new user's login info for auto login
+                //at the next app lunching time
+                sharedEditor.putString(LAST_USER_NAME,user.getUsername());
+                sharedEditor.putString(LAST_USER_PASSWORD,user.getPassword());
+                sharedEditor.putBoolean(SAVE_LAST_USER,true);
+                sharedEditor.commit();
+
                 //if the user created and details are correct
                 //-the register proccess was successful login with the new userIntent
                 Intent _userPanel = new Intent(context, UserPanel.class);

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     //Show/hide login progress
     HideProgress hideLogin;
 
+    //Main layout
+    RelativeLayout mainLayout;
     //Login responsibles
     Button login,register;
     CheckBox checkBox;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainLayout=(RelativeLayout)findViewById(R.id.activity_main);
         login = (Button) findViewById(R.id.LoginButton);
         register = (Button) findViewById(R.id.RegisterButton);
         username = (EditText) findViewById(R.id.userName);
@@ -77,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
             clearLastUser();
         }
 
+        setFlowDirection();
         loginBySavedLastUser(!logout);
+
 
         setButtonsListeners();
     }
@@ -87,13 +94,16 @@ public class MainActivity extends AppCompatActivity {
      *
      */
     private void loginBySavedLastUser(boolean login) {
-        if(login) {
-            String savedName = sharedPreferences.getString(LAST_USER_NAME, null);
-            String savedPassword = sharedPreferences.getString(LAST_USER_PASSWORD, null);
-            Log.i("Auto login info:",savedName+", "+savedPassword);
 
-            //If the user and password correct saved
-            if (savedName != null && savedPassword != null) {
+        String savedName = sharedPreferences.getString(LAST_USER_NAME, "");
+        String savedPassword = sharedPreferences.getString(LAST_USER_PASSWORD, "");
+        Log.w("Auto login info:", savedName + ", " + savedPassword);
+
+        //If the user and password correct saved
+        if (savedName != null && savedName != "" && savedPassword != null && savedPassword != "") {
+            username.setText(savedName);
+            password.setText(savedPassword);
+            if (login) {
                 new UserLoginTask(savedName, savedPassword, true).execute((Void) null);
                 Log.w("MainActivity Auto login", "Loged on!");
             }
@@ -115,12 +125,11 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         loadLastConnectedUser();
+    }
 
-        boolean logout = checkLogout();
-        if(logout) {
-            loadLastConnectedUser();
-            clearLastUser();
-        }
+    private void setFlowDirection() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
     }
 
 
@@ -143,12 +152,13 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             //Get the last connected user info (if exist)
-            lastConnectedName = sharedPreferences.getString(LAST_USER_NAME, null);
-            username.setText((lastConnectedName != null) ? lastConnectedName : "");
-            Log.i("Password",sharedPreferences.getString(LAST_USER_PASSWORD, null));
-            lastConnectedPassword = sharedPreferences.getString(LAST_USER_PASSWORD, null);
+            lastConnectedName = sharedPreferences.getString(LAST_USER_NAME,"");
+            username.setText(lastConnectedName);
 
-            password.setText((lastConnectedPassword != null) ? lastConnectedPassword : "");
+            Log.i("Password",sharedPreferences.getString(LAST_USER_PASSWORD, ""));
+            lastConnectedPassword = sharedPreferences.getString(LAST_USER_PASSWORD, "");
+            password.setText(lastConnectedPassword);
+
             checked = sharedPreferences.getBoolean(SAVE_LAST_USER, false);
             checkBox.setChecked(checked);
 
