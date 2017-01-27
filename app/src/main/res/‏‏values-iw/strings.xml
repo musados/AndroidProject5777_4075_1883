@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">i-Travel</string>
+    <string name="title_activity_login">התחברות</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">אימייל</string>
+    <string name="prompt_password">סיסמה (אופציונלי)</string>
+    <string name="action_sign_in">התחבר או הירשם</string>
+    <string name="action_sign_in_short">התחבר</string>
+    <string name="register_activity_login">הירשם</string>
+    <string name="logout_user_panel">התנתק</string>
+    <string name="error_invalid_email">כתובת המייל אינה חוקית</string>
+    <string name="error_invalid_password">הסיסמה חייבת להכיל לפחות 8 תוים</string>
+    <string name="error_username_exist">אנא בחר שם משתמש אחר</string>
+    <string name="error_invalid_confirm_password">הסיסמאות אינן תואמות</string>
+    <string name="error_incorrect_password">שם המשתמש או הסיסמה אינם נכונים</string>
+    <string name="login_proccess_error">לא יכול להתחבר,נסה שוב מאוחר יותר.</string>
+    <string name="error_field_required">השדה הזה נדרש!</string>
+    <string name="error_age_must_more_9">הגיל שלו אינו מאושר!</string>
+    <string name="minimum_age_toast_message">Note: You must be at least 9 year old!</string>
+    <string name="error_phone_format">Enter valid phone number-10 digits for the local format and maximum 12 digits for the universal format e.g. +97250-000-0000.</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="bussiness_agency_app">Bussiness agency app</string>
+    <string name="log_in">התחבר</string>
+    <string name="register">הירשם</string>
+    <string name="or">או</string>
+    <string name="user_email_name_placeholder">foo@example.com</string>
+    <string name="password_placeholder">Password</string>
+    <string name="re_password_placeholder">Confirm password</string>
+    <string name="login_checkbox">זכור אותי</string>
+    <string name="user_login_data">פרטי התחברות:</string>
+    <string name="user_personal_data">פרטים אישיים:</string>
+
+    <string name="user_name">הזן שם משתמש (e-mail):</string>
+    <string name="user_password">הזן סיסמה חדשה:</string>
+    <string name="user_password_confirm">הזן שוב את הסיסמה:</string>
+
+    <string name="first_name">שם פרטי:</string>
+    <string name="first_name_example">ישראל</string>
+    <string name="last_name">שם משפחה:</string>
+    <string name="last_name_example">ישראלי</string>
+    <string name="gender">מין:</string>
+    <string name="male">זכר</string>
+    <string name="female">נקבה</string>
+    <string name="birth_day">תאריך לידה:</string>
+    <string name="birth_day_example">15/01/1990</string>
+    <string name="phone">מספר טלפון:</string>
+    <string name="phone_example">0500020123</string>
+    <string name="address">כתובת:</string>
+    <string name="address_example"> הפלמח 42, תל אביב</string>
+    <string name="have_account_login">כבר יש לך חשבון?</string>
+    <string name="have_not_account_register">אין לך חשבון?</string>
+
+    <string name="login_proccess_title">Tמנסה להתחבר</string>
+    <string name="registering_proccess_title">מנסה להירשם</string>
+    <string name="proccess_running_wait">אנא המתן</string>
+
+    <string name="choose_date">בחר תאריך</string>
+    <string name="saved_user_cleared">נוקה</string>
+    <string name="flow_direction">rtl</string>
+</resources>
