@@ -1,0 +1,58 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow">
+        <!--<item name="android:shadowDy">1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowRadius">2</item>-->
+        <item name="android:textColor">#fff</item>
+        <!--<item name="android:shadowColor">#000</item>-->
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">15dp</item>
+
+    </style>
+
+    <style name="AlertDialog.AppCompat.Light.WhiteTextInput">
+        <item name="android:layout_height">@dimen/user_texts_inputs_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ems">15</item>
+        <item name="android:maxEms">20</item>
+        <item name="android:maxLength">25</item>
+        <item name="android:layout_marginTop">@dimen/user_input_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/user_input_bottom_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton">
+        <item name="android:paddingLeft">55dp</item>
+        <item name="android:paddingRight">55dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/green_round_button</item>
+    </style>
+
+    <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@drawable/hyper_link_button</item>
+    </style>
+
+</resources>

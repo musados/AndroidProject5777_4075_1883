@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@color/lightYellow"
+    tools:context="com.siduron.java.iTravel.Controller.MainActivity">
+
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/login_progrees_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/login_progress"
+        android:text="@string/proccess_running_wait"
+        android:visibility="gone"/>
+
+    <!-- Login form -->
+ <RelativeLayout
+     android:id="@+id/login_form"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/travel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="57dp"
+        android:id="@+id/imageView"
+        android:scaleType="fitCenter"
+        android:cropToPadding="false"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/bussiness_agency_app" />
+
+    <AutoCompleteTextView
+        android:id="@+id/userName"
+        android:nextFocusDown="@+id/userPassword"
+        android:hint="@string/user_email_name_placeholder"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/inputs_backgroud"
+        style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"/>
+
+
+    <EditText
+        android:id="@+id/userPassword"
+        android:hint="@string/password_placeholder"
+        android:inputType="textPassword"
+        style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/userName"
+        android:background="@drawable/inputs_backgroud"
+        android:nextFocusDown="@+id/LoginButton"
+        android:imeActionId="@+id/LoginButton"
+        android:imeActionLabel="@string/log_in"/>/>
+
+
+    <CheckBox
+        android:id="@+id/SaveLastConnected"
+        android:nextFocusDown="@+id/LoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userPassword"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/login_checkbox"
+        android:text="@string/login_checkbox"
+        android:imeActionId="@+id/LoginButton"
+        android:imeActionLabel="@string/log_in"/>
+
+
+    <!-- Buttons Area -->
+
+    <LinearLayout android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:background="@color/yellow"
+        android:minWidth="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:gravity="center">
+
+        <Button
+            android:text="@string/log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/LoginButton"
+            android:imeActionId="@+id/LoginButton"
+            android:imeActionLabel="@string/log_in"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/have_not_account_register"
+            android:layout_alignParentTop="true"/>
+
+        <Button
+            android:text="@string/register"
+            android:layout_width="wrap_content"
+            android:id="@+id/RegisterButton"
+            android:background="@drawable/hyper_link_button"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"
+            android:lines="1" />
+        <!--@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
+            android:layout_marginBottom="5dp"
+            android:padding="0dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:paddingLeft="55dp"
+            android:paddingRight="55dp"-->
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+</RelativeLayout>

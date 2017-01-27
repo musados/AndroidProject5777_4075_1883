@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/lightYellow"
+    tools:context="com.siduron.java.iTravel.Controller.RegisterActivity"
+    >
+
+    <!-- Scroller -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:verticalScrollbarPosition="defaultPosition"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/yellow"
+        android:scrollbarTrackVertical="@color/lightYellow"
+        android:overScrollMode="ifContentScrolls"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- Content -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/travel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="27dp"
+            android:id="@+id/imageView"
+            android:scaleType="fitCenter"
+            android:cropToPadding="false"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/bussiness_agency_app" />
+
+        <TextView
+            android:id="@+id/LoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_login_data"
+            android:textColor="#000"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- User login container -->
+    <LinearLayout
+        android:id="@+id/LoginDetailsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/data_containers_margin"
+        android:padding="@dimen/data_containers_padding"
+        android:layout_below="@id/LoginTitle"
+        android:background="@drawable/bordered_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_name"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/userName"
+            android:nextFocusDown="@+id/userPassword"
+            android:hint="@string/user_email_name_placeholder"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:maxLength="35"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/inputs_backgroud"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_password"/>
+        <EditText
+            android:id="@+id/userPassword"
+            android:hint="@string/password_placeholder"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:nextFocusDown="@+id/userRePassword"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/userName"
+            android:background="@drawable/inputs_backgroud"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_password_confirm"/>
+        <EditText
+            android:id="@+id/userRePassword"
+            android:nextFocusDown="@+id/userFirstName"
+            android:hint="@string/re_password_placeholder"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/userPassword"
+            android:background="@drawable/inputs_backgroud"/>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/PersonalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_personal_data"
+            android:textColor="#000"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_below="@id/LoginDetailsContainer"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- User personal details container -->
+        <LinearLayout
+            android:id="@+id/PersonalDetailsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/data_containers_margin"
+            android:padding="@dimen/data_containers_padding"
+            android:layout_below="@id/PersonalTitle"
+            android:background="@drawable/bordered_container">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/first_name"/>
+            <EditText
+                android:id="@+id/userFirstName"
+                android:nextFocusDown="@+id/userLastName"
+                android:hint="@string/first_name_example"
+                android:inputType="textAutoComplete"
+                android:maxLines="1"
+                android:maxLength="15"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/userPassword"
+                android:background="@drawable/inputs_backgroud"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_name"/>
+            <EditText
+                android:id="@+id/userLastName"
+                android:nextFocusDown="@+id/UserGender"
+                android:hint="@string/last_name_example"
+                android:inputType="textAutoComplete"
+                android:maxLines="1"
+                android:maxLength="15"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/userPassword"
+                android:background="@drawable/inputs_backgroud"/>
+
+            <RadioGroup
+                android:id="@+id/UserGender"
+                android:nextFocusDown="@+id/MaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="@string/gender"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/MaleRadioButton"
+                    android:checked="true"
+                    android:nextFocusDown="@+id/FemaleRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"/>
+
+                <RadioButton
+                    android:id="@+id/FemaleRadioButton"
+                    android:nextFocusDown="@+id/BirthPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birth_day"/>
+            <!--<RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">-->
+            <TextView
+                android:id="@+id/BirthdayText"
+                android:maxLines="1"
+                android:clickable="true"
+                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:ems="15"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textIsSelectable="true"
+                android:text="1/01/1900"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:onClick="setDate"
+                android:background="@drawable/white_input_background"
+                android:textColor="@color/colorPrimaryDark"/>
+
+                <!--<ImageView
+                    android:id="@+id/BirthPicker"
+                    android:layout_width="30dp"
+                    android:nextFocusDown="@+id/userPhone"
+                    android:layout_height="@dimen/user_texts_inputs_height"
+                    android:src="@drawable/date_picker_icon"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:padding="2dp"
+                    android:clickable="true"
+                    android:onClick="setDate"
+                    android:layout_marginBottom="@dimen/user_input_bottom_margin"
+                    android:scaleType="fitCenter"
+                    android:background="@color/transparent"
+                    android:visibility="gone"/>-->
+                <!--</RelativeLayout>-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"/>
+            <EditText
+                android:id="@+id/userPhone"
+                android:hint="@string/phone_example"
+                android:nextFocusDown="@+id/userAddress"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:maxLength="13"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/userPassword"
+                android:background="@drawable/inputs_backgroud"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"/>
+            <EditText
+                android:id="@+id/userAddress"
+                android:nextFocusDown="@+id/RegisterButton"
+                android:hint="@string/address_example"
+                android:inputType="textAutoComplete"
+                android:maxLines="1"
+                android:maxLength="45"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/userPassword"
+                android:background="@drawable/inputs_backgroud"
+                android:imeActionId="@+id/RegisterButton"
+                android:imeActionLabel="@string/register"/>
+            </LinearLayout>
+
+            <!-- Register button -->
+
+            <Button
+                android:id="@+id/RegisterButton"
+                android:text="@string/register"
+                android:imeActionId="@+id/RegisterButton"
+                android:imeActionLabel="@string/register"
+                android:layout_below="@id/PersonalDetailsContainer"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton"/>
+            <!--
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="55dp"
+                android:paddingLeft="55dp"
+                android:layout_marginBottom="5dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/green_round_button"-->
+
+            <TextView
+                android:id="@+id/LoginText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/have_account_login"
+                android:layout_below="@id/RegisterButton"
+                android:layout_centerHorizontal="true"/>
+            <!--
+                android:layout_marginBottom="5dp"-->
+
+            <Button
+                android:id="@+id/LoginButton"
+                android:text="@string/log_in"
+                android:layout_below="@id/LoginText"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"/>
+            <!--
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/hyper_link_button"-->
+
+        </RelativeLayout>
+
+        <!-- End of the content -->
+    </ScrollView>
+</RelativeLayout>
