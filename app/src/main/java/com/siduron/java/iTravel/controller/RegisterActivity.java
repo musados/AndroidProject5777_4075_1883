@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -48,6 +50,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
@@ -79,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             address;
 
     //BirthDay variiables
-    private TextView birthday;
+    private DateTextPicker birthday;
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
@@ -102,6 +105,16 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
         populateAutoComplete();
 
+        try {
+            SplashScreen s = new SplashScreen();
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                window.setStatusBarColor(this.getColor(R.color.colorPrimary));
+        }
+        catch (Exception e){}
+
         //set birthday fiels
         calendar=Calendar.getInstance();
         year=calendar.get(Calendar.YEAR);
@@ -118,8 +131,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void setFlowDirection() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-        mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (Locale.getDefault().getDisplayLanguage().contains("עברית"))
+                mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
+            else
+                mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_LTR);
+        }
+
     }
 
 
@@ -185,7 +203,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
         firstName = (EditText) findViewById(R.id.userFirstName);
         lastName = (EditText) findViewById(R.id.userLastName);
-        birthday = (TextView) findViewById(R.id.BirthdayText);
+        birthday = (DateTextPicker) findViewById(R.id.BirthdayText);
+
         phoneNumber = (EditText) findViewById(R.id.userPhone);
         address = (EditText) findViewById(R.id.userAddress);
         address.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -303,6 +322,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
         String last=lastName.getText().toString();
         String phone = phoneNumber.getText().toString().trim();
         String addr=address.getText().toString();
+        year=birthday.getCyear();
+        month=birthday.getCmonth();
+        day=birthday.getCday();
+
+        Log.w(TAG,"Birthday: "+day+"/"+month+"/"+year);
 
         View toFocus = null;
         boolean cancel=false;

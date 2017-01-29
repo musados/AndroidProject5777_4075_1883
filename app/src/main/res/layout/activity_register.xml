@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/lightYellow"
+    android:background="#fff"
     tools:context="com.siduron.java.iTravel.Controller.RegisterActivity"
     >
 
@@ -68,7 +68,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"/>
+            android:text="@string/user_name"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
 
         <AutoCompleteTextView
             android:id="@+id/userName"
@@ -85,7 +86,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_password"/>
+            android:text="@string/user_password"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
         <EditText
             android:id="@+id/userPassword"
             android:hint="@string/password_placeholder"
@@ -102,7 +104,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_password_confirm"/>
+            android:text="@string/user_password_confirm"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
         <EditText
             android:id="@+id/userRePassword"
             android:nextFocusDown="@+id/userFirstName"
@@ -143,7 +146,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/first_name"/>
+                android:text="@string/first_name"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
             <EditText
                 android:id="@+id/userFirstName"
                 android:nextFocusDown="@+id/userLastName"
@@ -160,7 +164,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/last_name"/>
+                android:text="@string/last_name"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
             <EditText
                 android:id="@+id/userLastName"
                 android:nextFocusDown="@+id/UserGender"
@@ -201,14 +206,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/birth_day"/>
+                android:text="@string/birth_day"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
             <!--<RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">-->
-            <TextView
+            <com.siduron.java.iTravel.Controller.DateTextPicker
                 android:id="@+id/BirthdayText"
-                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                /><!--android:maxLines="1"
                 android:clickable="true"
                 android:layout_height="35dp"
                 android:layout_width="wrap_content"
@@ -221,7 +229,7 @@
                 android:textStyle="bold"
                 android:onClick="setDate"
                 android:background="@drawable/white_input_background"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"/>-->
 
                 <!--<ImageView
                     android:id="@+id/BirthPicker"
@@ -245,7 +253,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/phone"/>
+                android:text="@string/phone"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
             <EditText
                 android:id="@+id/userPhone"
                 android:hint="@string/phone_example"
@@ -262,7 +271,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/address"/>
+                android:text="@string/address"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
             <EditText
                 android:id="@+id/userAddress"
                 android:nextFocusDown="@+id/RegisterButton"

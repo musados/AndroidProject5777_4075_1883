@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffffcf00</color>
     <color name="colorLogin">#4F8f31</color>
     <color name="colorRegister">#a4b0f1</color>
     <color name="lightRed">#ff0000</color>
@@ -11,8 +11,21 @@
     <color name="lightGreen">#00cf00</color>
     <color name="mediumGreen">#00aa00</color>
     <color name="darkGreen">#005500</color>
-    <color name="yellow">#5fdfaf00</color>
+    <color name="yellow">#ffffcf00</color>
     <color name="lightYellow">#fffffcc0</color>
     <color name="strokeTransparentBlack">#24000000</color>
     <color name="transparent">#00000000</color>
+
+    <!-- Text colors -->
+    <color name="labels_text_color">#000</color>
+
+    <!-- Drawer Colors -->
+    <color name="list_background">#fff</color>
+    <color name="list_divider">#45000000</color>
+
+    <color name="menu_default">#78ffcf00</color>
+    <color name="menu_hovered">#67f7053e</color>
+    <color name="menu_activated">#67d8605e</color>
+    <color name="menu_pressed">#67ff455e</color>
+    <color name="menu_text_color">#000</color>
 </resources>

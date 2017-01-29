@@ -4,7 +4,8 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_username">Enter user name: (email)</string>
+    <string name="prompt_password">Enter password:</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="register_activity_login">Register</string>
@@ -61,4 +62,30 @@
     <string name="choose_date">Select date</string>
     <string name="saved_user_cleared">Cleared</string>
     <string name="flow_direction">ltr</string>
+
+    <!-- User panel Menu strings -->
+    <string name="user_name_profile">Username</string>
+    <string name="update_user_profile">Update</string>
+    <string name="logout_user_profile">Logout</string>
+
+    <string-array name="user_panel_menu_items">
+        <item>Upadte</item>
+        <item>Settings</item>
+        <item>Logout</item>
+    </string-array>
+
+    <array name="user_panel_menu_icons">
+        <item>@drawable/update_user_icon</item>
+        <item>@drawable/settings_icon</item>
+        <item>@drawable/logout_icon</item>
+    </array>
+
+    <!-- User panel Strings -->
+    <string name="user_panel_title">User panel</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
