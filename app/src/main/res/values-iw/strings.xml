@@ -60,4 +60,12 @@
     <string name="choose_date">בחר תאריך</string>
     <string name="saved_user_cleared">נוקה</string>
     <string name="flow_direction">rtl</string>
+
+    <!-- User panel Menu strings -->
+    <string name="user_name_profile">שם משתמש</string>
+    <string name="update_user_profile">עדכן פרטים</string>
+    <string name="logout_user_profile">התנתק</string>
+
+    <!-- User panel Strings -->
+    <string name="user_panel_title">לוח בקרה</string>
 </resources>

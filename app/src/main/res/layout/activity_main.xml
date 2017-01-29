@@ -10,7 +10,7 @@
     android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/lightYellow"
+    android:background="#fff"
     tools:context="com.siduron.java.iTravel.Controller.MainActivity">
 
 
@@ -33,35 +33,53 @@
         android:text="@string/proccess_running_wait"
         android:visibility="gone"/>
 
+
     <!-- Login form -->
  <RelativeLayout
      android:id="@+id/login_form"
      android:layout_width="match_parent"
-     android:layout_height="match_parent">
+     android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         app:srcCompat="@drawable/travel"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
+        android:layout_marginBottom="37dp"
         android:id="@+id/imageView"
         android:scaleType="fitCenter"
         android:cropToPadding="false"
         android:layout_alignParentTop="true"
         android:contentDescription="@string/bussiness_agency_app" />
 
+     <TextView
+         android:id="@+id/UserNameLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/user_name"
+         android:layout_below="@+id/imageView"
+         android:layout_centerHorizontal="true"
+         style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
+
     <AutoCompleteTextView
         android:id="@+id/userName"
         android:nextFocusDown="@+id/userPassword"
         android:hint="@string/user_email_name_placeholder"
         android:inputType="textEmailAddress"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/UserNameLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
         android:background="@drawable/inputs_backgroud"
         style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"/>
 
+     <TextView
+         android:id="@+id/PasswordLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/prompt_password"
+         android:layout_below="@id/userName"
+         android:layout_centerHorizontal="true"
+         style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
 
     <EditText
         android:id="@+id/userPassword"
@@ -70,7 +88,7 @@
         style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/userName"
+        android:layout_below="@id/PasswordLabel"
         android:background="@drawable/inputs_backgroud"
         android:nextFocusDown="@+id/LoginButton"
         android:imeActionId="@+id/LoginButton"
@@ -127,6 +145,7 @@
             android:background="@drawable/hyper_link_button"
             style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"
             android:lines="1" />
+
         <!--@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow"
             android:layout_marginBottom="5dp"
             android:padding="0dp"
@@ -137,6 +156,7 @@
             android:textColor="#fff"
             android:paddingLeft="55dp"
             android:paddingRight="55dp"-->
+
     </LinearLayout>
 </RelativeLayout>
 

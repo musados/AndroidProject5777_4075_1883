@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:iTravel="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/UserActions"
+        iTravel:showAsAction="always"
+        android:title="@string/user_name_profile"
+        android:icon="@drawable/user_profile_icon"/>
+
+        <item android:id="@+id/UpdateUserProfile"
+            android:title="@string/update_user_profile"
+            android:icon="@drawable/update_user_icon"/>
+        <item android:id="@+id/LogoutUser"
+            android:icon="@drawable/logout_icon"
+            android:title="@string/logout_user_panel" />
+    </menu>

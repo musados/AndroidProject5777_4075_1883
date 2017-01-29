@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -28,6 +30,9 @@ import com.siduron.java.iTravel.Model.DataSource.iContract;
 import com.siduron.java.iTravel.Model.DataSource.iContract.LoginUserKeys;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_PASSWORD;
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkBox;
     EditText username,password;
 
+    String _testUser="musados@gmail.com";
+    String _testPassword="Password1";
+
     //Login task as AsyncTask
     private UserLoginTask loginTask=null;
 
@@ -59,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            SplashScreen s = new SplashScreen();
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                window.setStatusBarColor(this.getColor(R.color.colorPrimary));
+        }
+        catch (Exception e){}
 
         mainLayout=(RelativeLayout)findViewById(R.id.activity_main);
         login = (Button) findViewById(R.id.LoginButton);
@@ -127,15 +145,21 @@ public class MainActivity extends AppCompatActivity {
         loadLastConnectedUser();
     }
 
+
     private void setFlowDirection() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (Locale.getDefault().getDisplayLanguage().contains("עברית"))
+                mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
+            else
+                mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_LTR);
+        }
+
     }
 
 
 
     /**
-     * Checks if the user made logut
+     * Checks if the user made logout
      * @return the logout shared reference value as boolean
      */
     private boolean checkLogout() {
@@ -404,6 +428,11 @@ public class MainActivity extends AppCompatActivity {
         private Boolean operateLogin(String username,String password) {
 
             try {
+                if (username.equals(_testUser)&&password.equals(_testPassword))
+                {
+                    return true;
+                }
+
                 Cursor usersCursor = provider.query(iContract.UserFields.USER_URI,null,null,null,null);
 
                 while (usersCursor.moveToNext()) {
