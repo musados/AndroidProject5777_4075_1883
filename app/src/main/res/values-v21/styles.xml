@@ -6,4 +6,9 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="ToolbarStyle">
+        <item name="android:colorPrimary">@color/yellow</item>
+        <item name="android:textColor">@color/darkRed</item>
+    </style>
 </resources>

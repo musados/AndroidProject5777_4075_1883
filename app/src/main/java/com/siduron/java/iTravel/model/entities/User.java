@@ -2,6 +2,7 @@ package com.siduron.java.iTravel.Model.Entities;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +11,7 @@ import java.util.Date;
  * Created by musad on 19/01/2017.
  */
 
-public class User implements ITravelData {
+public class User implements ITravelData, Serializable {
     //User account data
     private int id;
     private String username;

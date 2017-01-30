@@ -26,14 +26,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.siduron.java.iTravel.Model.Backend.iTravelContentProvider;
+import com.siduron.java.iTravel.Model.DataSource.Tools;
 import com.siduron.java.iTravel.Model.DataSource.iContract;
 import com.siduron.java.iTravel.Model.DataSource.iContract.LoginUserKeys;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
+import com.siduron.java.iTravel.Model.Entities.Gender;
+import com.siduron.java.iTravel.Model.Entities.User;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USER_MAIN_KEY;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_PASSWORD;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SAVE_LAST_USER;
@@ -371,6 +375,8 @@ public class MainActivity extends AppCompatActivity {
         iTravelContentProvider provider=new iTravelContentProvider();
 
         ProgressDialog dialog ;
+
+        User userAccount=null;
         String user="";
         String pass="";
         boolean check=false;
@@ -437,8 +443,14 @@ public class MainActivity extends AppCompatActivity {
 
                 while (usersCursor.moveToNext()) {
                     //If the user name is exist and the password is correct return true
-                    if (usersCursor.getString(1).equals(username) && usersCursor.getString(2).equals(password))
+                    if (usersCursor.getString(1).equals(username) && usersCursor.getString(2).equals(password)) {
+                        userAccount = new User(Integer.parseInt(usersCursor.getString(0)), usersCursor.getString(1),
+                                usersCursor.getString(2),
+                                usersCursor.getString(3), usersCursor.getString(4),
+                                Gender.fromString(usersCursor.getString(5)),
+                                Tools.dateFromString(usersCursor.getString(6)), usersCursor.getString(7), usersCursor.getString(8));
                         return true;
+                    }
                 }
 
                 //else if the user name is not exist - set generic message about the username and the password
@@ -477,6 +489,7 @@ public class MainActivity extends AppCompatActivity {
 
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+                _userPanel.putExtra(USER_MAIN_KEY,userAccount);
 
                 startActivity(_userPanel);
                 finish();

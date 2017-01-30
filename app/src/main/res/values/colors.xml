@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#ffffcf00</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ffffcf00</color>
     <color name="colorLogin">#4F8f31</color>
@@ -24,8 +24,11 @@
     <color name="list_divider">#45000000</color>
 
     <color name="menu_default">#78ffcf00</color>
-    <color name="menu_hovered">#67f7053e</color>
-    <color name="menu_activated">#67d8605e</color>
-    <color name="menu_pressed">#67ff455e</color>
+    <color name="menu_hovered">#fffffcc0</color>
+    <color name="menu_activated">#78ffcf00</color>
+    <color name="menu_pressed">#fffffcc0</color>
     <color name="menu_text_color">#000</color>
+
+    <!-- Toolbar colors -->
+    <color name="toolbar_title_text_color">#fff</color>
 </resources>

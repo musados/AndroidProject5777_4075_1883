@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USER_MAIN_KEY;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_PASSWORD;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SAVE_LAST_USER;
@@ -588,6 +589,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_NAME_KEY, username.getText().toString());
                 _userPanel.putExtra(iContract.LoginUserKeys.LOGIN_PASSWORD_KEY, password.getText().toString());
+                _userPanel.putExtra(USER_MAIN_KEY,user);
 
                 _userPanel.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 _userPanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

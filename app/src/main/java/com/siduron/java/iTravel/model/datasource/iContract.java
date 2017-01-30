@@ -29,6 +29,8 @@ public class iContract
         public static final String PHONE = "phone";
         public static final String ADDRESS = "address";
 
+        public static final String USER_MAIN_KEY="com.siduron.java.iTravel.USER_MAIN_KEY";
+
         public static final String TABLE_NAME = "Users_table";
         public static final String[] COLUMNS = new String[]{ID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME, GENDER, BIRTHDAY, PHONE, ADDRESS};
         public static final Uri USER_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
