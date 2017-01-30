@@ -65,8 +65,17 @@
 
     <!-- User panel Menu strings -->
     <string name="user_name_profile">Username</string>
+    <string name="user_home_lists">My items</string>
     <string name="update_user_profile">Update</string>
+    <string name="user_profile_settings">Settings</string>
     <string name="logout_user_profile">Logout</string>
+    <string name="sharing_and_communication">Communication</string>
+    <string name="share">Share</string>
+    <string name="send">Send</string>
+
+    <!-- Add activity/bussiness menu -->
+    <string name="add_bussiness_contex">Add bussiness</string>
+    <string name="add_activity_contex">Add activity</string>
 
     <string-array name="user_panel_menu_items">
         <item>Upadte</item>
@@ -88,4 +97,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -199,7 +199,7 @@ public class Tools
      * @param dateText
      * @return Instace of Date (Java.util)
      */
-    private static Date dateFromString(String dateText)
+    public static Date dateFromString(String dateText)
     {
         Date date=null;
         Log.i(TAG,"Trying to parse: "+dateText);
@@ -220,7 +220,7 @@ public class Tools
         return date;
     }
 
-    private static String dateToString(Date date) {
+    public static String dateToString(Date date) {
         String text;
         Log.i(TAG, "Trying to parse: " + date.toString());
 

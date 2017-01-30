@@ -26,6 +26,6 @@
         android:layout_height="20dp"
         android:layout_gravity="center"
         android:layout_weight="0.3"
-        />
+        android:background="#000"/>
 
 </LinearLayout>

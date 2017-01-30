@@ -64,8 +64,18 @@
 
     <!-- User panel Menu strings -->
     <string name="user_name_profile">שם משתמש</string>
+    <string name="user_home_lists">הפריטים שלי</string>
     <string name="update_user_profile">עדכן פרטים</string>
+    <string name="user_profile_settings">הגדרות</string>
     <string name="logout_user_profile">התנתק</string>
+    <string name="sharing_and_communication">רשתות חברתיות</string>
+    <string name="share">שיתוף</string>
+    <string name="send">שליחה</string>
+
+
+    <!-- Add activity/bussiness menu -->
+    <string name="add_bussiness_contex">הוסף עסק</string>
+    <string name="add_activity_contex">הוסף פעילות</string>
 
     <!-- User panel Strings -->
     <string name="user_panel_title">לוח בקרה</string>

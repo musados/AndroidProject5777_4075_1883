@@ -6,16 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.siduron.java.iTravel.Controller.UserPanel">
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<android.support.v7.widget.Toolbar
-    android:id="@+id/actionBar"
-    android:layout_width="match_parent"
-    android:background="#fff"
-    android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
 
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/actionBar"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/toolbar_background"
+                    style="@style/ToolbarStyle"
+                    app:titleTextColor="@color/darkRed"
+                    android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/FrameContainer"
@@ -27,24 +36,38 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
+            android:layout_gravity="bottom|left"
             android:layout_margin="@dimen/fab_margin"
-            android:backgroundTint="@color/yellow"
             android:tint="@color/darkRed"
-            android:onClick=""
+            app:backgroundTint="@color/yellow"
+            android:onClick="floatingActionClick"
             app:srcCompat="@android:drawable/ic_input_add" /></FrameLayout>
     </LinearLayout>
 
-    <!-- Listview to display slider menu -->
-    <ListView
-        android:id="@+id/list_slidermenu"
-        android:layout_width="240dp"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/list_background"
-        android:choiceMode="singleChoice"
-        android:divider="@color/list_divider"
-        android:dividerHeight="1dp"
-        android:listSelector="@drawable/list_selector" />
+        android:fitsSystemWindows="true"
+        app:itemBackground="@drawable/list_selector"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer">
+
+        <!-- Listview to display slider menu -->
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/list_slidermenu"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/list_background"
+            android:choiceMode="singleChoice"
+            android:divider="@color/list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/list_selector" />
+
+    </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>
