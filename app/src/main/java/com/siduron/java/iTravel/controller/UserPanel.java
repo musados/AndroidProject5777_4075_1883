@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -12,12 +13,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentContainer;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -36,6 +39,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.siduron.java.androidproject5777_4075_4075.R;
 import com.siduron.java.iTravel.Model.DataSource.Tools;
 import com.siduron.java.iTravel.Model.DataSource.iContract;
@@ -50,33 +57,36 @@ import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USE
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SHARED_NAME;
 
-public class UserPanel extends AppCompatActivity {
+public class UserPanel extends AppCompatActivity
+        implements HomeFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener,
+        UpdateUserFragment.OnFragmentInteractionListener {
 
     //Log tag
-    private final String TAG="User control panel";
+    private final String TAG = "User control panel";
 
     //Loged on user details
-    private User loggedUser=null;
+    private User loggedUser = null;
 
-    private int currentFrameIndex=0;
-    private String currentTag=TAG_HOME;
-    private int currentID=ID_HOME;
+    private int currentFrameIndex = 0;
+    private String currentTag = TAG_HOME;
+    private int currentID = ID_HOME;
 
     // tags used to attach the fragments
-    private static  String TAG_HOME ;//= new HomeFragment().getTag();
-    private static  String TAG_Update_USER;// = new UpdateUserFragment().getTag();
-    private static  String TAG_SETTINGS ;//= new SettingsFragment().getTag();
-    private static  String TAG_SHARE;// = "share";
+    private static String TAG_HOME;//= new HomeFragment().getTag();
+    private static String TAG_Update_USER;// = new UpdateUserFragment().getTag();
+    private static String TAG_SETTINGS;//= new SettingsFragment().getTag();
+    private static String TAG_SHARE;// = "share";
 
     private static int ID_HOME;//=R.string.user_home_lists;
-    private static  int ID_UPDATE;//=R.string.update_user_profile;
+    private static int ID_UPDATE;//=R.string.update_user_profile;
     private static int ID_SETTINGS;//=R.string.user_profile_settings;
 
 
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
 
-    private Handler mHandler= new Handler();
+    private Handler mHandler = new Handler();
 
     //Sahred reference variables
     SharedPreferences sharedPreferences;
@@ -84,7 +94,7 @@ public class UserPanel extends AppCompatActivity {
 
     //Main layout
     DrawerLayout mainLayout;
-    android.support.v7.widget.Toolbar tool;
+    Toolbar tool;
     NavigationView NavView;
     FloatingActionButton fab;
 
@@ -104,10 +114,16 @@ public class UserPanel extends AppCompatActivity {
     TextView MenuUser;
     TextView MenuAccount;
     ImageView MenuImage;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     /**
      * OnCreate activity method
+     *
      * @param savedInstanceState
      */
     @SuppressLint("NewApi")
@@ -115,17 +131,16 @@ public class UserPanel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_panel);
-
+        mTitle = mDrawerTitle = getTitle();
         //Set the Strings IDs
-        ID_HOME=R.string.user_home_lists;
-        ID_UPDATE=R.string.update_user_profile;
-        ID_SETTINGS=R.string.user_profile_settings;
+        ID_HOME = R.string.user_home_lists;
+        ID_UPDATE = R.string.update_user_profile;
+        ID_SETTINGS = R.string.user_profile_settings;
         //Sets the TAGs
         TAG_HOME = "HomeFragment";
         TAG_Update_USER = "UpdateUserFragment";
         TAG_SETTINGS = "SettingsFragment";
         TAG_SHARE = "share";
-
 
 
         setDrawer(savedInstanceState);
@@ -145,17 +160,19 @@ public class UserPanel extends AppCompatActivity {
             if (savedInstanceState == null) {
                 loadHomeFragment();
             }
-        }
-        catch (Exception e){
-            Log.e(TAG,e.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
 
 
-        MenuUser=(TextView)NavView.getHeaderView(0).findViewById(R.id.MenuUsername);
-        MenuAccount=(TextView)NavView.getHeaderView(0).findViewById(R.id.MenuUserAccount);
-        MenuImage = (ImageView)NavView.getHeaderView(0).findViewById(R.id.MenuUserImage);
+        MenuUser = (TextView) NavView.getHeaderView(0).findViewById(R.id.MenuUsername);
+        MenuAccount = (TextView) NavView.getHeaderView(0).findViewById(R.id.MenuUserAccount);
+        MenuImage = (ImageView) NavView.getHeaderView(0).findViewById(R.id.MenuUserImage);
 
         loadLoggedUser();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -167,7 +184,7 @@ public class UserPanel extends AppCompatActivity {
             loggedUser = (User) getIntent().getSerializableExtra(USER_MAIN_KEY);
             MenuUser.setText("TestUser");
             if (loggedUser != null) {
-                MenuUser.setText(loggedUser.getFirstName()+" "+loggedUser.getLastName());
+                MenuUser.setText(loggedUser.getFirstName() + " " + loggedUser.getLastName());
                 MenuAccount.setText(loggedUser.getUsername());
             } else
                 Log.w(TAG, "User is null");
@@ -189,25 +206,26 @@ public class UserPanel extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 window.setStatusBarColor(this.getColor(R.color.colorPrimary));
         } catch (Exception e) {
-            Log.e(TAG,"Status bar color wasn't setted");
+            Log.e(TAG, "Status bar color wasn't setted");
         }
     }
 
 
     /**
      * Inits the drawer and his elements
+     *
      * @param savedInstanceState
      */
     private void setDrawer(Bundle savedInstanceState) {
 
         mTitle = mDrawerTitle = getTitle();
 
-        tool=(android.support.v7.widget.Toolbar) findViewById(R.id.actionBar);
+        tool = (Toolbar) findViewById(R.id.actionBar);
         tool.setTitle(mTitle);
 
-        NavView=(NavigationView)findViewById(R.id.nav_view);
+        NavView = (NavigationView) findViewById(R.id.nav_view);
 
-        fab=(FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         setUpNavigationView();
 
@@ -215,27 +233,27 @@ public class UserPanel extends AppCompatActivity {
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.user_panel_menu_items);
         // nav drawer icons from resources
-        navMenuIcons = getResources().obtainTypedArray(R.array.user_panel_menu_icons);
+        ////navMenuIcons = getResources().obtainTypedArray(R.array.user_panel_menu_icons);
 
         //ListView
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        ///mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        ///mDrawerList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         //Nav items as NavDrawerItem class ArrayList
-        navDrawerItems = new ArrayList<NavDrawerItem>();
+        ////navDrawerItems = new ArrayList<NavDrawerItem>();
 
         //Main Drawer container
         mainLayout = (DrawerLayout) findViewById(R.id.activity_user_panel);
 
         // Update
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        ////navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
         // Settings
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1,-1)));
+        ////navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1,-1)));
         // Logout
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+        ////navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 
         // Recycle the typed array
-        navMenuIcons.recycle();
+        //navMenuIcons.recycle();
 
        /* mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -245,7 +263,7 @@ public class UserPanel extends AppCompatActivity {
         });*/
 
         // setting the nav drawer list adapter
-        adapter = new ArrayAdapter<NavDrawerItem>(this,R.layout.drawer_menu_row_item,navDrawerItems) {
+        adapter = new ArrayAdapter<NavDrawerItem>(this, R.layout.drawer_menu_row_item, navDrawerItems) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -270,24 +288,45 @@ public class UserPanel extends AppCompatActivity {
 
         };
 
-        mDrawerList.setAdapter(adapter);
+        ////mDrawerList.setAdapter(adapter);
 
-        // enabling action bar app icon and behaving it as toggle button         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mainLayout,tool,
-                R.string.app_name, R.string.app_name);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mainLayout, tool,
+                R.string.app_name, R.string.app_name) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                super.onDrawerOpened(drawerView);
+            }
+
+
+        };
 
 
         //  Connect the drawer to toggle
         mainLayout.setDrawerListener(mDrawerToggle);
+
+        // enabling action bar app icon and behaving it as toggle button
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //calling sync state is necessary or else your hamburger icon wont show up
+        mDrawerToggle.syncState();
+
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-            //displayView(0);
+            displayView(0);
             //replaceFragment();
         }
     }
 
-/*
+
     private void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
@@ -311,23 +350,32 @@ public class UserPanel extends AppCompatActivity {
                 //fragment = new WhatsHotFragment();
                 break;
             default:
-                fragment=new HomeFragment();
+                fragment = new HomeFragment();
                 break;
         }
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.FrameContainer, fragment).commit();
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mainLayout.closeDrawer(mDrawerList);
+            try {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.FrameContainer, fragment);
+                transaction.commit();
+                // update selected item and title, then close the drawer
+                //mDrawerList.setItemChecked(position, true);
+                //mDrawerList.setSelection(position);
+                if (navMenuTitles != null) {
+                    String title = navMenuTitles[position];
+                    setTitle(title);
+                }
+                mainLayout.closeDrawer(NavView);
+            } catch (Exception e) {
+                Log.e(TAG, navMenuTitles[position] + " Position: " + position + "\nfrom: " + navMenuTitles.length + "\n" + e.getMessage());
+            }
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
-*/
+
 
     @Override
     public void setTitle(CharSequence title) {
@@ -346,6 +394,7 @@ public class UserPanel extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -356,17 +405,15 @@ public class UserPanel extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        //boolean drawerOpen = mainLayout.isDrawerOpen(mDrawerList);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        boolean drawerOpen = mainLayout.isDrawerOpen(NavView);
+        //menu.findItem(R.id.nav_share).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
 
-
-
-/**
- * Set page flow direction
- */
+    /**
+     * Set page flow direction
+     */
     private void setFlowDirection() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (Locale.getDefault().getDisplayLanguage().contains("עברית"))
@@ -387,24 +434,25 @@ public class UserPanel extends AppCompatActivity {
         finish();
     }
 
-    /*@Override public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_activity_bussiness, menu);
         return true;
-    }*/
+    }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         return onContextItemSelected(item);
-    }*/
+    }
 
 
-
-        /**
-         * Floating action button click event handler
-         * @param view Clicked button
-         */
+    /**
+     * Floating action button click event handler
+     *
+     * @param view Clicked button
+     */
     public void floatingActionClick(View view) {
         Toast.makeText(this, "The floating button eas clicked! :)", Toast.LENGTH_SHORT).show();
         registerForContextMenu(fab);
@@ -450,37 +498,37 @@ public class UserPanel extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.UserLists:
                         currentFrameIndex = 0;
-                        currentTag =TAG_HOME;
-                        Log.w(TAG,"Current Tag: "+currentTag);
-                        currentID=ID_HOME;
-                        Log.w(TAG,"Home pressed");
+                        currentTag = TAG_HOME;
+                        Log.w(TAG, "Current Tag: " + currentTag);
+                        currentID = ID_HOME;
+                        Log.w(TAG, "Home pressed");
                         break;
                     case R.id.UpdateUserDetails:
                         currentFrameIndex = 1;
                         currentTag = TAG_Update_USER;
-                        Log.w(TAG,"Current Tag: "+currentTag);
-                        currentID=ID_UPDATE;
-                        Log.w(TAG,"Update user pressed");
+                        Log.w(TAG, "Current Tag: " + currentTag);
+                        currentID = ID_UPDATE;
+                        Log.w(TAG, "Update user pressed");
                         break;
                     case R.id.UserSettings:
                         currentFrameIndex = 2;
                         currentTag = TAG_SETTINGS;
-                        Log.w(TAG,"Current Tag: "+currentTag);
-                        currentID=ID_SETTINGS;
-                        Log.w(TAG,"Settings pressed");
+                        Log.w(TAG, "Current Tag: " + currentTag);
+                        currentID = ID_SETTINGS;
+                        Log.w(TAG, "Settings pressed");
                         break;
                     case R.id.LogoutUser:
                         logout(null);
-                        Log.w(TAG,"Logout pressed");
+                        Log.w(TAG, "Logout pressed");
                         return false;
                     case R.id.nav_share:
-                        Log.w(TAG,"Share pressed");
+                        Log.w(TAG, "Share pressed");
                         break;
                     case R.id.nav_send:
                         // launch new intent instead of loading fragment
                         //startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
                         //mainLayout.closeDrawers();
-                        Log.w(TAG,"Send pressed");
+                        Log.w(TAG, "Send pressed");
                         break;
 
                     default:
@@ -497,7 +545,7 @@ public class UserPanel extends AppCompatActivity {
                 }
                 menuItem.setChecked(true);
 
-                loadHomeFragment();
+                displayView(currentFrameIndex);
 
                 return true;
             }
@@ -531,8 +579,9 @@ public class UserPanel extends AppCompatActivity {
     private void selectNavMenu() {
         try {
             NavView.getMenu().getItem(currentFrameIndex).setChecked(true);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
-        catch (Exception e){Log.e(TAG,e.getMessage());}
     }
 
 
@@ -564,7 +613,7 @@ public class UserPanel extends AppCompatActivity {
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
-                    replaceFragment();
+                replaceFragment();
 
             }
         };
@@ -572,7 +621,7 @@ public class UserPanel extends AppCompatActivity {
         setTitle(getString(currentID));
 
         // If mPendingRunnable is not null, then add to the message queue
-        if(mPendingRunnable != null) {
+        if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
         }
 
@@ -593,8 +642,8 @@ public class UserPanel extends AppCompatActivity {
     private void replaceFragment() {
         // update the main content by replacing fragmentsagment
         Fragment fragment = getHomeFragment();
-        Log.w(TAG,fragment+" The tag name");
-        if(fragment!=null && fragment.getTag()!=null) {
+        Log.w(TAG, fragment + " The tag name");
+        if (fragment != null && fragment.getTag() != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
@@ -604,7 +653,7 @@ public class UserPanel extends AppCompatActivity {
             fragmentTransaction.commitAllowingStateLoss();
         }
 
-        Log.w(TAG, fragment.getView()+" The tag name");
+        Log.w(TAG, fragment.getView() + " The tag name");
 
     }
 
@@ -642,29 +691,69 @@ public class UserPanel extends AppCompatActivity {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_activity_bussiness,menu);
+        inflater.inflate(R.menu.add_activity_bussiness, menu);
         //registerForContextMenu(fab);
     }
 
 
-    @Override public boolean onContextItemSelected(MenuItem item) {
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.addBussiness:
-                Toast.makeText(this,"Bussiness added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bussiness added", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.addActivity:
-                Toast.makeText(this,"Activity added",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show();
                 return true;
             default:
-                return super.onContextItemSelected(item);
+                return true;//super.onContextItemSelected(item);
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("UserPanel Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 
 
-    private class NavigationTask extends AsyncTask<Void,Void,Boolean>
-    {
+    private class NavigationTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -673,7 +762,7 @@ public class UserPanel extends AppCompatActivity {
 
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                     android.R.anim.fade_out);
-            fragmentTransaction.replace(R.id.FrameContainer, fragment,currentTag);
+            fragmentTransaction.replace(R.id.FrameContainer, fragment, currentTag);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
@@ -683,16 +772,14 @@ public class UserPanel extends AppCompatActivity {
         protected Boolean doInBackground(Void... voids) {
             try {
                 return true;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 return false;
             }
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if(success)
-            {
+            if (success) {
             }
         }
     }

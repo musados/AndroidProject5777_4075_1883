@@ -75,6 +75,12 @@
     <string name="add_bussiness_contex">הוסף עסק</string>
     <string name="add_activity_contex">הוסף פעילות</string>
 
+    <string-array name="user_panel_menu_items">
+        <item>הפריטים שלי</item>
+        <item>עדכון פרטים</item>
+        <item>הגדרות</item>
+    </string-array>
+
     <!-- User panel Strings -->
     <string name="user_panel_title">לוח בקרה</string>
 </resources>

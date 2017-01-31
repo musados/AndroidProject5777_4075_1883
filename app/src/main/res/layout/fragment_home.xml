@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     android:tag="HomeFragment"
     android:id="@+id/HomeFragment"
-    tools:context="com.siduron.java.iTravel.Controller.HomeFragment">
+    tools:context="com.siduron.java.iTravel.Controller.HomeFragment"
+    android:background="#fff">
 
     <TextView
+        android:id="@+id/ActivitiesLabel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment"

@@ -2,6 +2,7 @@ package com.siduron.java.iTravel.Controller;
 
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,8 +34,10 @@ import com.siduron.java.iTravel.Model.DataSource.iContract.LoginUserKeys;
 import com.siduron.java.androidproject5777_4075_4075.R;
 import com.siduron.java.iTravel.Model.Entities.Gender;
 import com.siduron.java.iTravel.Model.Entities.User;
+import com.siduron.java.iTravel.Model.Service.TravelService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USER_MAIN_KEY;
@@ -56,8 +59,15 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkBox;
     EditText username,password;
 
-    String _testUser="musados@gmail.com";
-    String _testPassword="Password1";
+    User _testUser=new User(
+            0,
+            "musados@gmail.com",
+            "Password1",
+            "משה","נהרי"
+            ,Gender.MALE,
+            Calendar.getInstance().getTime(),
+            "0509374049",
+            "רבבות אפרים 38, קדומים");
 
     //Login task as AsyncTask
     private UserLoginTask loginTask=null;
@@ -72,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ComponentName componentName = startService(new Intent(MainActivity.this, TravelService.class));
+Log.w("MainActivity","Service starting: ");
         try {
             SplashScreen s = new SplashScreen();
             Window window = this.getWindow();
@@ -434,8 +446,9 @@ public class MainActivity extends AppCompatActivity {
         private Boolean operateLogin(String username,String password) {
 
             try {
-                if (username.equals(_testUser)&&password.equals(_testPassword))
+                if (username.equals(_testUser.getUsername())&&password.equals(_testUser.getPassword()))
                 {
+                    userAccount=_testUser;
                     return true;
                 }
 

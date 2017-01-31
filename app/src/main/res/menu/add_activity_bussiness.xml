@@ -5,7 +5,7 @@
         android:id="@+id/addBussiness"
         android:icon="@drawable/bussiness"
         android:title="@string/add_bussiness_contex"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/addActivity"
         android:icon="@drawable/add_activity"

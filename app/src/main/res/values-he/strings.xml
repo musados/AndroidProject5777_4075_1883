@@ -73,6 +73,14 @@
     <string name="send">שליחה</string>
 
 
+    <string-array name="user_panel_menu_items">
+        <item>הפריטים שלי</item>
+        <item>עדכון פרטים</item>
+        <item>הגדרות</item>
+    </string-array>
+
+
+
     <!-- Add activity/bussiness menu -->
     <string name="add_bussiness_contex">הוסף עסק</string>
     <string name="add_activity_contex">הוסף פעילות</string>
