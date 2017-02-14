@@ -4,22 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
+import com.siduron.java.iTravel.Model.Entities.User;
+
+import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USER_MAIN_KEY;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SettingsFragment.OnFragmentInteractionListener} interface
+ * {@link BusinessesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SettingsFragment#newInstance} factory method to
+ * Use the {@link BusinessesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+public class BusinessesFragment extends Fragment {
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -30,7 +36,7 @@ public class SettingsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public SettingsFragment() {
+    public BusinessesFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +46,11 @@ public class SettingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
+     * @return A new instance of fragment BusinessesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
+    public static BusinessesFragment newInstance(String param1, String param2) {
+        BusinessesFragment fragment = new BusinessesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,20 +65,42 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
+    User loggedUser;
+
     @Override
-    public void onStart()
-    {
-        super.onStart();
-        getActivity().setTitle(getResources().getString(R.string.user_profile_settings));
+    public void onResume() {
+        super.onResume();
+
+        loggedUser = (User) getActivity().getIntent().getSerializableExtra(USER_MAIN_KEY);
+
+        TabHost host = (TabHost)getActivity().findViewById(R.id.BusinessesTabHost);
+
+        host.setup();
+
+        TabHost.TabSpec spec = host.newTabSpec("Tab1");
+
+        spec.setContent(R.id.BusinessesListView);
+        spec.setIndicator(getResources().getString(R.string.businesses_list_label),getResources().getDrawable(R.drawable.bussiness));
+        host.addTab(spec);
+
+        spec=host.newTabSpec("Tab2");
+        spec.setContent(R.id.ActivitiesListView);
+        spec.setIndicator(getResources().getString(R.string.activities_list_label),getResources().getDrawable(R.drawable.add_activity));
+        host.addTab(spec);
+
+        host.setCurrentTab(0);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_businesses, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+    android:scrollbars="vertical"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="40dp"
+    android:layout_margin="10dp"
+    android:scrollbarThumbVertical="@color/yellow"
+    android:scrollbarTrackVertical="@color/lightYellow"
+    android:overScrollMode="never"
+    android:background="@drawable/bordered_container">
+    <RelativeLayout
+        android:id="@+id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ImageAndInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/BusinessImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bussiness"
+            android:minHeight="100dp"
+            android:minWidth="100dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/Instructions"
+                android:padding="10dp"
+                android:text="@string/add_business_instructions"
+                android:layout_alignParentTop="true"
+                style="@style/AlertDialog.AppCompat.Light.Instructions"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/AddBusinessDescription"
+            android:hint="@string/business_name"
+            android:ems="10"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:layout_below="@id/ImageAndInstructions"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/AddBusinessName" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/activity_description"
+            android:ems="10"
+            android:nextFocusDown="@+id/AddBusinessEmail"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:id="@+id/AddBusinessDescription"
+            android:layout_below="@id/AddBusinessName"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/user_email_name_placeholder"
+            android:ems="10"
+            android:nextFocusDown="@+id/AddBusinessPhone"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:id="@+id/AddBusinessEmail"
+            android:layout_below="@id/AddBusinessDescription"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:inputType="phone"
+            android:hint="@string/phone_example"
+            android:ems="10"
+            android:nextFocusDown="@+id/AddBusinessAddress"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:id="@+id/AddBusinessPhone"
+            android:layout_below="@id/AddBusinessEmail"/>
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/address_example"
+            android:ems="10"
+            android:nextFocusDown="@+id/AddBusinessWebsite"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:id="@+id/AddBusinessAddress"
+            android:layout_below="@id/AddBusinessPhone"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_centerHorizontal="true"
+            android:hint="http://www.website.com"
+            android:ems="12"
+            android:nextFocusDown="@+id/AddButton_AddBusiness"
+            style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+            android:id="@+id/AddBusinessWebsite"
+            android:layout_below="@id/AddBusinessAddress"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/AddBusinessWebsite">
+
+            <Button
+                android:id="@+id/AddButton_AddBusiness"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton"
+                android:text="@string/add_button"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/CancelButton_AddBusiness"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.SubButton"
+                android:text="@string/cancel_button"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

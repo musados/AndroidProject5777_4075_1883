@@ -37,18 +37,36 @@ public class iContract
     }
 
     /**
-     * Bussiness DB fields and table names
+     * Business DB fields and table names
      * @author Moshe Nahari & Haim Milikovski
      */
     public static class BussinessFields {
         public static final String ID = "_id";
+        public static final String MANAGER_ID = "manager_id";
         public static final String NAME = "name";
+        public static final String EMAIL = "email";
         public static final String PHONE = "phone";
+        public static final String ADDRESS = "address";
+        public static final String WEBSITE = "website";
         public static final String DESCRIPTION = "description";
 
         public static final String TABLE_NAME = "Bussiness_table";
-        public static final String[] COLUMNS = new String[]{ID, NAME, PHONE, DESCRIPTION};
+        public static final String[] COLUMNS = new String[]{ID,MANAGER_ID, NAME, EMAIL, PHONE, ADDRESS, WEBSITE, DESCRIPTION};
         public static final Uri BUSSINESS_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
+    }
+
+    /**
+     * Business DB fields and table names
+     * @author Moshe Nahari & Haim Milikovski
+     */
+    public static class BusinessAdapterFields {
+        public static final String ID = "_id";
+        public static final String USER_ID = "user_id";
+        public static final String BUSINESS_ID = "business_id";
+
+        public static final String TABLE_NAME = "Bussiness_Adapter_table";
+        public static final String[] COLUMNS = new String[]{ID,USER_ID, BUSINESS_ID};
+        public static final Uri BUSSINESS_Adapter_URI = Uri.parse(ContentProvider.AUTHORITY_URI + "/" + TABLE_NAME);
     }
 
     /**
@@ -57,7 +75,7 @@ public class iContract
      */
     public static class ActivityFields {
         public static final String ID = "_id";
-        public static final String BUSSINESS_ID = "bussiness_id";
+        public static final String BUSSINESS_ID = "business_id";
         public static final String NAME = "name";
         public static final String DESCRIPTION = "description";
         public static final String START_DATE = "start_date";
@@ -78,7 +96,7 @@ public class iContract
     public static class ActivityAdapterFields {
         public static final String ID = "_id";
         public static final String ACTIVITY_ID = "activity_id";
-        public static final String BUSSINESS_ID = "bussiness_id";
+        public static final String BUSSINESS_ID = "business_id";
 
         public static final String TABLE_NAME = "Activity_adapters_table";
         public static final String[] COLUMNS = new String[]{ID, ACTIVITY_ID, BUSSINESS_ID};

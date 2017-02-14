@@ -1,23 +1,30 @@
 package com.siduron.java.iTravel.Controller;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentContainer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +39,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -44,23 +52,29 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.siduron.java.androidproject5777_4075_4075.R;
-import com.siduron.java.iTravel.Model.DataSource.Tools;
 import com.siduron.java.iTravel.Model.DataSource.iContract;
 import com.siduron.java.iTravel.Model.Entities.NavDrawerItem;
 import com.siduron.java.iTravel.Model.Entities.User;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
+import static android.Manifest.permission.CALL_PHONE;
+import static android.Manifest.permission.READ_CONTACTS;
+import static android.content.Intent.ACTION_CALL;
+import static android.content.Intent.ACTION_DIAL;
+import static android.content.Intent.ACTION_SEND;
+import static android.content.Intent.ACTION_SENDTO;
+import static android.content.Intent.ACTION_VIEW;
+import static android.content.Intent.ACTION_WEB_SEARCH;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.UserFields.USER_MAIN_KEY;
-import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.LAST_USER_NAME;
 import static com.siduron.java.iTravel.Model.DataSource.iContract.iSharedPreference.SHARED_NAME;
 
 public class UserPanel extends AppCompatActivity
         implements HomeFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
-        UpdateUserFragment.OnFragmentInteractionListener {
+        UpdateUserFragment.OnFragmentInteractionListener,
+        BusinessesFragment.OnFragmentInteractionListener{
 
     //Log tag
     private final String TAG = "User control panel";
@@ -76,15 +90,17 @@ public class UserPanel extends AppCompatActivity
     private static String TAG_HOME;//= new HomeFragment().getTag();
     private static String TAG_Update_USER;// = new UpdateUserFragment().getTag();
     private static String TAG_SETTINGS;//= new SettingsFragment().getTag();
+    private static String TAG_BUSINESSES;// = "share";
     private static String TAG_SHARE;// = "share";
 
     private static int ID_HOME;//=R.string.user_home_lists;
     private static int ID_UPDATE;//=R.string.update_user_profile;
     private static int ID_SETTINGS;//=R.string.user_profile_settings;
+    private static int ID_BUSSINESS;
 
 
     // flag to load home fragment when user presses back key
-    private boolean shouldLoadHomeFragOnBackPress = true;
+    private boolean shouldLoadHomeFragOnBackPress = false;
 
     private Handler mHandler = new Handler();
 
@@ -97,6 +113,7 @@ public class UserPanel extends AppCompatActivity
     Toolbar tool;
     NavigationView NavView;
     FloatingActionButton fab;
+    Fragment mainFragment;
 
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -136,10 +153,12 @@ public class UserPanel extends AppCompatActivity
         ID_HOME = R.string.user_home_lists;
         ID_UPDATE = R.string.update_user_profile;
         ID_SETTINGS = R.string.user_profile_settings;
+        ID_BUSSINESS =R.string.businesses_list_label;
         //Sets the TAGs
         TAG_HOME = "HomeFragment";
         TAG_Update_USER = "UpdateUserFragment";
         TAG_SETTINGS = "SettingsFragment";
+        TAG_BUSINESSES = "BusinessesFragment";
         TAG_SHARE = "share";
 
 
@@ -333,20 +352,21 @@ public class UserPanel extends AppCompatActivity
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
+                currentTag = TAG_HOME;
                 break;
             case 1:
                 fragment = new UpdateUserFragment();
+                currentTag = TAG_Update_USER;
                 break;
             case 2:
                 fragment = new SettingsFragment();
-                break;
-            case 3:
+                currentTag = TAG_SETTINGS;
                 //fragment = new CommunityFragment();
                 break;
-            case 4:
+            case 3:
                 //fragment = new PagesFragment();
                 break;
-            case 5:
+            case 4:
                 //fragment = new WhatsHotFragment();
                 break;
             default:
@@ -358,6 +378,7 @@ public class UserPanel extends AppCompatActivity
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.FrameContainer, fragment);
+                transaction.addToBackStack(currentTag);
                 transaction.commit();
                 // update selected item and title, then close the drawer
                 //mDrawerList.setItemChecked(position, true);
@@ -365,6 +386,7 @@ public class UserPanel extends AppCompatActivity
                 if (navMenuTitles != null) {
                     String title = navMenuTitles[position];
                     setTitle(title);
+                    toggleFab();
                 }
                 mainLayout.closeDrawer(NavView);
             } catch (Exception e) {
@@ -416,10 +438,12 @@ public class UserPanel extends AppCompatActivity
      */
     private void setFlowDirection() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (Locale.getDefault().getDisplayLanguage().contains("עברית"))
+            if (Locale.getDefault().getDisplayLanguage().contains("עברית")) {
                 mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_RTL);
-            else
+            }
+            else {
                 mainLayout.setLayoutDirection(RelativeLayout.LAYOUT_DIRECTION_LTR);
+            }
         }
 
     }
@@ -444,8 +468,58 @@ public class UserPanel extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.addActivity:
+                addActivity();
+                return true;
+            case R.id.addBussiness:
+                addBusiness();
+                return true;
+
+        }
         return onContextItemSelected(item);
     }
+
+
+    /**
+     * Add Activity - starting new "AddActivity" activity
+     *
+     * with extra of the serializible logged user!
+     */
+    private void addActivity() {
+        Intent addActivity = new Intent(this, AddActivity.class);
+        addActivity.putExtra(USER_MAIN_KEY, loggedUser);
+        startActivity(addActivity);
+    }
+
+
+    /**
+     * Event handler for the business icon displayed in the home frame
+     * @param view
+     */
+    public void EmptFrameIconClick(View view)
+    {
+        addBusiness();
+    }
+
+    /**
+     * Add Business - starting new "AddBusiness" activity
+     *
+     * with extra of the serializible logged user!
+     */
+    private void addBusiness() {
+        Intent addBusiness = new Intent(this, AddBusiness.class);
+        addBusiness.putExtra(USER_MAIN_KEY, loggedUser);
+        startActivity(addBusiness);
+    }
+
+
+    private void showAddBusinessDialog() {
+        AddBusinessDialog businessDialog = new AddBusinessDialog();
+        businessDialog.show(getFragmentManager(), TAG);
+        businessDialog.setCancelable(true);
+    }
+
 
 
     /**
@@ -454,7 +528,6 @@ public class UserPanel extends AppCompatActivity
      * @param view Clicked button
      */
     public void floatingActionClick(View view) {
-        Toast.makeText(this, "The floating button eas clicked! :)", Toast.LENGTH_SHORT).show();
         registerForContextMenu(fab);
         openContextMenu(fab);
         unregisterForContextMenu(fab);
@@ -468,7 +541,16 @@ public class UserPanel extends AppCompatActivity
             return;
         }
 
-        setTitle(getString(currentID));
+
+        //int index = getFragmentManager().getBackStackEntryCount() - 1;
+        //FragmentManager.BackStackEntry backEntry = (FragmentManager.BackStackEntry) getFragmentManager().getBackStackEntryAt(0);
+
+        //Log.w(TAG,"Name of stack index: "+index);
+        //String name=backEntry.getName();
+
+        //Log.w(TAG,"Name of stack entry: "+name);
+
+        //setTitle(navMenuTitles[currentID]);
         // This code loads home fragment when back key is pressed
         // when user is in other fragment than home
         if (shouldLoadHomeFragOnBackPress) {
@@ -483,6 +565,15 @@ public class UserPanel extends AppCompatActivity
         }
 
         super.onBackPressed();
+
+        if (mainFragment instanceof HomeFragment)
+            setTitle(getResources().getString(ID_HOME));
+        else if(mainFragment instanceof UpdateUserFragment)
+            setTitle(getResources().getString(ID_UPDATE));
+        else if(mainFragment instanceof SettingsFragment)
+            setTitle(getResources().getString(ID_SETTINGS));
+
+
     }
 
     private void setUpNavigationView() {
@@ -648,7 +739,7 @@ public class UserPanel extends AppCompatActivity
 
             fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
                     android.R.anim.fade_out);
-            fragmentTransaction.add(R.id.FrameContainer, fragment, currentTag);
+            fragmentTransaction.replace(R.id.FrameContainer, fragment, currentTag);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commitAllowingStateLoss();
         }
@@ -701,13 +792,11 @@ public class UserPanel extends AppCompatActivity
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.addBussiness:
-                Toast.makeText(this, "Bussiness added", Toast.LENGTH_SHORT).show();
-                return true;
+                return onOptionsItemSelected(item);
             case R.id.addActivity:
-                Toast.makeText(this, "Activity added", Toast.LENGTH_SHORT).show();
-                return true;
+                return onOptionsItemSelected(item);
             default:
-                return true;//super.onContextItemSelected(item);
+                return super.onContextItemSelected(item);
         }
     }
 
@@ -752,36 +841,119 @@ public class UserPanel extends AppCompatActivity
         client.disconnect();
     }
 
+    /**
+     * Make a call when business phone or other phone pressed
+     *
+     * @param view Phone text view
+     */
+    public void makeCall(View view) {
+        String phone = "";
+        Intent callerIntent;
 
-    private class NavigationTask extends AsyncTask<Void, Void, Boolean> {
+        if (view instanceof TextView) {
+            phone = ((TextView) view).getText().toString().trim();
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return;
+            }
+            callerIntent = new Intent(ACTION_DIAL);
+            callerIntent.setType("vnd.android.cursor.dir/call");
+            callerIntent.setData(Uri.parse("tel:" + phone));
 
-        @Override
-        protected void onPreExecute() {
-            Fragment fragment = getHomeFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            //Toast.makeText(this, "Call permissins: " + ((checkSelfPermission(ACTION_CALL) == PackageManager.PERMISSION_GRANTED) ? "Granted" : "Denied"), Toast.LENGTH_SHORT).show();
 
-            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                    android.R.anim.fade_out);
-            fragmentTransaction.replace(R.id.FrameContainer, fragment, currentTag);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            if (false&&checkSelfPermission(ACTION_CALL) != PackageManager.PERMISSION_GRANTED){
+                //request permission from user if the app hasn't got the required permission
+                requestPermissions(new String[]{CALL_PHONE},0);
+            }
+            else {
+                try {
+                    callerIntent.setAction(android.content.Intent.ACTION_CALL).setData(Uri.parse("tel:"+((TextView) view).getText()));
 
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            try {
-                return true;
-            } catch (Exception e) {
-                return false;
+                    startActivity(callerIntent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getApplicationContext(), "yourActivity is not founded", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if (success) {
+    }
+
+
+    /**
+     * Go to the web browser when Link pressed
+     * @param view
+     */
+    public void goToWebsite(View view) {
+        if(view instanceof TextView) {
+            String website="";
+            try {
+                website = ((TextView) view).getText().toString().trim();
+                if(!website.startsWith("http://")&&!website.startsWith("https://"))
+                    website="http://"+website;
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    return;
+                }
+                Intent browserIntent = new Intent(ACTION_VIEW, Uri.parse(website));
+                startActivity(browserIntent);
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG,"Failed to open website address: "+website);
             }
         }
     }
+
+    /**
+     * Go to the web browser when Link pressed
+     * @param view
+     */
+    public void geoSearch(View view) {
+        if(view instanceof TextView) {
+            String address ="";
+            try {
+                address = ((TextView) view).getText().toString().trim();
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    return;
+                }
+                Intent browserIntent = new Intent(ACTION_VIEW);
+                browserIntent.setData(Uri.parse("geo:<lat>,<long>?q=("+address+")"));
+                startActivity(browserIntent);
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG,"Failed to open website address: "+address);
+            }
+        }
+    }
+
+    /**
+     * Sending email when email is pressed
+     * @param view
+     */
+    public void sendMail(View view) {
+        if(view instanceof TextView) {
+            String email ="";
+            try {
+                email = ((TextView) view).getText().toString().trim();
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    return;
+                }
+
+                Intent intent = new Intent(Intent.ACTION_SEND);//,Uri.parse("To"+":"+ email));
+                intent.setType("vnd.android.cursor.dir/email");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+
+                startActivity(Intent.createChooser(intent,"Send mail"));
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG,"Failed to send email - address: "+email);
+            }
+        }
+    }
+
+
 
 }

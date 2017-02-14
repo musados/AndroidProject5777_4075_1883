@@ -1,17 +1,80 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:tag="HomeFragment"
     android:id="@+id/HomeFragment"
     tools:context="com.siduron.java.iTravel.Controller.HomeFragment"
-    android:background="#fff">
+    android:background="#fff"
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/ActivitiesLabel"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:layout_gravity="center_vertical|center_horizontal"/>
+        android:padding="0dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+            <TabWidget android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+            <FrameLayout android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+                <ListView
+                    android:id="@+id/ActivitiesListView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="fill_horizontal"
+                    android:divider="@color/list_divider"
+                    android:dividerHeight="1dp"
+                    android:choiceMode="singleChoice"
+                    android:listSelector="@drawable/list_selector">
+                </ListView>
+
+
+
+                <ListView
+                    android:id="@+id/BusinessesListView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:divider="@color/list_divider"
+                    android:dividerHeight="1dp"
+                    android:choiceMode="none"
+                    android:layout_below="@id/BusinessesLabel"
+                    android:listSelector="@drawable/list_selector"/>
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/EmptyFrameButton"
+            android:clickable="true"
+            android:onClick="EmptFrameIconClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bussiness"
+            android:padding="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bordered_instructions_background"/>
+
+    </RelativeLayout>
+
+</TabHost>
+
+

@@ -72,7 +72,7 @@
     <string name="share">שיתוף</string>
     <string name="send">שליחה</string>
 
-    <!-- Add activity/bussiness menu -->
+    <!-- Add activity/business menu -->
     <string name="add_bussiness_contex">הוסף עסק</string>
     <string name="add_activity_contex">הוסף פעילות</string>
 
@@ -85,4 +85,64 @@
 
     <!-- User panel Strings -->
     <string name="user_panel_title">לוח בקרה</string>
+
+    <!--Add activity strings -->
+    <string name="add_activity_title">הוסף פעילות</string>
+    <string name="add_activity_instructions">מלא/י את השדות להלן ולבסוף לחצ/י על "הוסף".</string>
+    <string name="activity_id">מזהה פעילות:</string>
+    <string name="activity_business_id">מזהה עסק:</string>
+    <string name="activity_name">שם הפעילות</string>
+    <string name="activity_description">תיאור</string>
+    <string name="activity_start_date">מתחיל ב:</string>
+    <string name="activity_end_date">מסתיים ב:</string>
+    <string name="activity_category">קטגוריה:</string>
+    <string name="activity_location">מיקום</string>
+    <string name="activity_price">מחיר:</string>
+
+    <string name="add_activity_process_title">מוסיף את הפעילות</string>
+
+    <string-array name="category_items_array">
+        <item>מסלול קצר</item>
+        <item>טיול יום</item>
+        <item>טיול משפחות</item>
+        <item>סיור מודרך</item>
+        <item>בית מלון</item>
+        <item>סוף שבוע</item>
+    </string-array>
+
+    <!-- Add activity Errors -->
+    <string name="business_id_error">אנא בחר מזהה עסק.</string>
+    <string name="activity_name_error">אנא בחר שם אחר.</string>
+    <string name="start_date_error">תאריך ההתחלה חייב להיות מאוחר יותר מהזמן הנוכחי!</string>
+    <string name="end_date_error">תאריך הסיום חייב להיות מאוחר מתאריך ההתחלה!</string>
+
+    <!-- Buttons texts -->
+    <string name="add_button">הוסף</string>
+    <string name="cancel_button">ביטול</string>
+
+    <string name="loading_info_title">Loading info</string>
+    <string name="activities_list_label">הפעילויות שלך</string>
+    <string name="businesses_list_label">העסקים שלך</string>
+
+    <string name="business_id_label">מזהה עסק:</string>
+    <string name="id_label">מזהה:</string>
+    <string name="add_business_title">הוסף עסק</string>
+    <string name="business_name">שם העסק</string>
+    <string name="add_business_process_title">מוסיף את העסק</string>
+
+
+    <string name="add_business_instructions">אנא מלא/י את השדות להלן לפי הדוגמאות המופיעות בכל תיבה.</string>
+    <string name="incorrect_website_error">יש למלא כתובת אתר תקינה כדלהלן: http://www.example.com.</string>
+    <string name="add_activity_must_be_business">נא להוסיף עסק לפני הוספת פעילות!</string>
+
+    <string name="add_business_process_success">העסק נוסף בהצלחה!</string>
+    <string name="add_business_failed_error">הוספת העסק נכשלה אנא נסה/י שנית.</string>
+    <string name="add_business_exist_error">שם העסק כבר קיים! יש לבחור שם אחר.</string>
+    <string name="add_business_unknown_error">שגיאה לא ידועה - נסה/י שוב.</string>
+
+    <string name="dialog_are_you_sure_cancel_title">האם את/ה בטוח?</string>
+    <string name="dialog_are_you_sure_cancel_message">כל מידע שלא נשמר יאבד.</string>
+    <string name="dialog_are_you_sure_cancel_stay">הישאר</string>
+    <string name="dialog_are_you_sure_cancel_ok">צא</string>
+    <string name="ok_button">אישור</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.siduron.java.iTravel.Model.Entities;
 
+import com.siduron.java.iTravel.Model.DataSource.Tools;
+
 import java.util.Date;
 
 /**
@@ -19,7 +21,7 @@ public class Activity implements ITravelData{
     private Date endDate;
 
     private Category activityCategory;
-    private String activitylocation;
+    private String activityLocation;
 
     private double activityPrice;
 
@@ -50,7 +52,7 @@ public class Activity implements ITravelData{
         startDay=start;
         endDate=end;
         activityCategory=category;
-        activitylocation=location;
+        activityLocation=location;
         activityPrice=price;
     }
 
@@ -102,11 +104,11 @@ public class Activity implements ITravelData{
     }
 
     public String getActivitylocation() {
-        return activitylocation;
+        return activityLocation;
     }
 
     public void setActivitylocation(String activitylocation) {
-        this.activitylocation = activitylocation;
+        this.activityLocation = activitylocation;
     }
 
     public double getActivityPrice() {
@@ -135,9 +137,9 @@ public class Activity implements ITravelData{
                         getBussinessID(),
                         getActivityName(),
                         getActivityDescription(),
-                        getStartDay(),
-                        getEndDate(),
-                        getActivityCategory(),
+                        Tools.dateToString(getStartDay()),
+                        Tools.dateToString(getEndDate()),
+                        getActivityCategory().toString(),
                         getActivitylocation(),
                         getActivityPrice()
                 };

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     EditText username,password;
 
     User _testUser=new User(
-            0,
+            1235,
             "musados@gmail.com",
             "Password1",
             "משה","נהרי"
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ComponentName componentName = startService(new Intent(MainActivity.this, TravelService.class));
-Log.w("MainActivity","Service starting: ");
+        Log.w("MainActivity","Service starting: ");
         try {
             SplashScreen s = new SplashScreen();
             Window window = this.getWindow();
@@ -121,6 +121,7 @@ Log.w("MainActivity","Service starting: ");
 
 
         setButtonsListeners();
+
     }
 
     /**
@@ -158,6 +159,7 @@ Log.w("MainActivity","Service starting: ");
     @Override
     public void onResume() {
         super.onResume();
+        hideLogin.showProgress(false);
         loadLastConnectedUser();
     }
 
@@ -378,7 +380,7 @@ Log.w("MainActivity","Service starting: ");
      *
      * @author Moshe Nahari & Haim Milikovsli
      */
-    private class UserLoginTask extends AsyncTask<Void,Void,Boolean>
+    public class UserLoginTask extends AsyncTask<Void,Void,Boolean>
     {
         private String TAG="User Login Task";
         String LoginError="";
@@ -428,7 +430,7 @@ Log.w("MainActivity","Service starting: ");
                 Log.i(TAG,"Do in background - Awaik");
 
                 //Login
-                Log.i(TAG,"Do in background - Performing registration...");
+                Log.i(TAG,"Do in background - Performing login...");
                 return operateLogin(user,pass);
             } catch (InterruptedException e)
             {
@@ -446,22 +448,31 @@ Log.w("MainActivity","Service starting: ");
         private Boolean operateLogin(String username,String password) {
 
             try {
+                /*
                 if (username.equals(_testUser.getUsername())&&password.equals(_testUser.getPassword()))
                 {
                     userAccount=_testUser;
                     return true;
                 }
+                */
 
                 Cursor usersCursor = provider.query(iContract.UserFields.USER_URI,null,null,null,null);
 
                 while (usersCursor.moveToNext()) {
                     //If the user name is exist and the password is correct return true
                     if (usersCursor.getString(1).equals(username) && usersCursor.getString(2).equals(password)) {
-                        userAccount = new User(Integer.parseInt(usersCursor.getString(0)), usersCursor.getString(1),
+                        userAccount = new User(
+                                Integer.parseInt(usersCursor.getString(0)),
+                                usersCursor.getString(1),
                                 usersCursor.getString(2),
-                                usersCursor.getString(3), usersCursor.getString(4),
+                                usersCursor.getString(3),
+                                usersCursor.getString(4),
                                 Gender.fromString(usersCursor.getString(5)),
-                                Tools.dateFromString(usersCursor.getString(6)), usersCursor.getString(7), usersCursor.getString(8));
+                                Tools.dateFromString(usersCursor.getString(6)),
+                                usersCursor.getString(7),
+                                usersCursor.getString(8));
+
+                        Log.w(TAG,"User account ID: "+userAccount.getId());
                         return true;
                     }
                 }

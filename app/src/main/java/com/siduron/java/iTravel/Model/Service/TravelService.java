@@ -16,6 +16,7 @@ import com.siduron.java.iTravel.Model.Backend.BackendFactor;
 import com.siduron.java.iTravel.Model.Backend.IBackEnd;
 import com.siduron.java.iTravel.Model.Entities.DBType;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 
@@ -44,13 +45,12 @@ public class TravelService extends Service {
 
         serviceRunning=true;
 
-        Toast.makeText(this,"Service was created!",Toast.LENGTH_LONG).show();
+        Log.i(TAG,"Service was created!");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Toast.makeText(this, "onStartCommand. sum is:" + 1, Toast.LENGTH_LONG).show();
         Log.w(TAG,"Service was started!!!");
 
         new Thread(new Runnable() {
@@ -60,11 +60,15 @@ public class TravelService extends Service {
                 while (true) {
                     if (dbManager.isActivitiesChanged(lastActivitiesChecked)) {
 
+                        lastActivitiesChecked= Calendar.getInstance().getTime();
+                        notifyUser("i-Travel Service","Activities changed: "+true+"\nPrevious Date: "+lastActivitiesChecked);
+                        Log.w(TAG, "is running: " + serviceRunning);
                         Log.w(TAG, "Activities changed!");
                     }
                     if (dbManager.isBussinessChanged(lastBussinessChecked)) {
-                        Log.w(TAG, "Bussinesses changed!");
-
+                        lastBussinessChecked= Calendar.getInstance().getTime();
+                        Log.w(TAG, "Businesses changed!");
+                        notifyUser("i-Travel Service","Businesses changed: "+true+"\nPrevious Date: "+lastActivitiesChecked);
                     }
 
                     try {
@@ -73,8 +77,6 @@ public class TravelService extends Service {
                         Log.e(TAG,e.getMessage());
                     }
 
-                    notifyUser("i-Travel Service","Service is running: "+serviceRunning);
-                        Log.w(TAG, "is running: " + serviceRunning);
                 }
 
             }
@@ -93,6 +95,7 @@ public class TravelService extends Service {
         // build notification
         // the addAction re-use the same intent to keep the example short
         Notification n = new Notification.Builder(this)
+                .setVibrate(new long[]{1000,2000,500,3000})
                 .setContentTitle(title)
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_notification_icon)

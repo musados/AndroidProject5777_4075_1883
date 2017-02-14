@@ -8,6 +8,7 @@
             android:id="@+id/UserLists"
             android:icon="@drawable/ic_action_list"
             android:title="@string/user_home_lists" />
+
         <item
             android:id="@+id/UpdateUserDetails"
             android:icon="@drawable/update_user_icon"

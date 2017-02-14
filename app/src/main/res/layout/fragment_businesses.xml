@@ -1,0 +1,49 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/BusinessesTabHost"
+    android:padding="2dp"
+    tools:context="com.siduron.java.iTravel.Controller.BusinessesFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TabWidget android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+        <FrameLayout android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ListView
+                android:id="@+id/BusinessesListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@color/list_divider"
+                android:dividerHeight="1dp"
+                android:choiceMode="none"
+                android:layout_below="@id/BusinessesLabel"
+                android:listSelector="@drawable/list_selector"
+                android:background="@drawable/bordered_instructions_background"/>
+
+            <ListView
+                android:id="@+id/ActivitiesListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="fill_horizontal"
+                android:divider="@color/list_divider"
+                android:dividerHeight="1dp"
+                android:choiceMode="singleChoice"
+                android:listSelector="@drawable/list_selector"
+                android:background="@drawable/bordered_instructions_background">
+            </ListView>
+        </FrameLayout>
+    </LinearLayout>
+
+</TabHost>

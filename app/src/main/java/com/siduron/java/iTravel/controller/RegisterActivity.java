@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
     private int year, month, day;
 
     RadioGroup radioGroup;
-    Gender selectedGender=Gender.UNKNOWN;
+    Gender selectedGender=Gender.MALE;
 
     //Sahred reference variables
     SharedPreferences sharedPreferences;
@@ -204,6 +204,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
         firstName = (EditText) findViewById(R.id.userFirstName);
         lastName = (EditText) findViewById(R.id.userLastName);
+        radioGroup=(RadioGroup)findViewById(R.id.UserGender) ;
+
+
         birthday = (DateTextPicker) findViewById(R.id.BirthdayText);
 
         phoneNumber = (EditText) findViewById(R.id.userPhone);
@@ -287,9 +290,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
                 user.setFirstName(firstName.getText().toString().trim());
                 user.setLastName(lastName.getText().toString().trim());
 
-                DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-                Date temp = format.parse(birthday.getText().toString());
-                user.setBirthDay(temp);
+                //DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+                //Date temp = format.parse(birthday.getText().toString());
+                user.setBirthDay(Tools.dateFromString(birthday.getText().toString()));
                 user.setGender(selectedGender);
                 user.setPhone(phoneNumber.getText().toString().trim());
                 user.setAddress(address.getText().toString());

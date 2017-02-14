@@ -8,10 +8,13 @@ import com.siduron.java.iTravel.Model.Backend.IBackEnd;
 import com.siduron.java.iTravel.Model.DataSource.iContract.UserFields;
 import com.siduron.java.iTravel.Model.Entities.Activity;
 import com.siduron.java.iTravel.Model.Entities.ActivityAdapter;
-import com.siduron.java.iTravel.Model.Entities.Bussiness;
+import com.siduron.java.iTravel.Model.Entities.Business;
+import com.siduron.java.iTravel.Model.Entities.BusinessAdapter;
+import com.siduron.java.iTravel.Model.Entities.Gender;
 import com.siduron.java.iTravel.Model.Entities.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class List_BackEnd implements IBackEnd {
     private static Date bussinessChangedTime = null;
     private static Date activityChangedTime = null;
     private static Date adapterChangedTime = null;
+    private static Date businessAdapterChangedTime = null;
 
 
     /**
@@ -50,19 +54,51 @@ public class List_BackEnd implements IBackEnd {
      * Because the class have a Singleton instance
      */
     private List_BackEnd() {
+
+        /*if(businessList==null)
+            businessList=new ArrayList<Business>();
+        if(usersList==null)
+            usersList=new ArrayList<User>();*/
+
+        usersList = new ArrayList<User>();
+        businessList = new ArrayList<Business>();
+        activityList = new ArrayList<Activity>();
+        activityAdapterList = new ArrayList<ActivityAdapter>();
+        businessAdapterList = new ArrayList<BusinessAdapter>();
+
+        /*businessList.add(new Business(
+                1234,
+                1235,
+                "Mushon",
+                "siduron10@gmail.com",
+                "+972509374049",
+                "Jerusalem",
+                "http://mousephone.siduron.com",
+                "Test business account"));*/
+
+        usersList.add(new User(
+                1235,
+                "musados@gmail.com",
+                "Password1",
+                "משה", "נהרי"
+                , Gender.MALE,
+                Calendar.getInstance().getTime(),
+                "0509374049",
+                "רבבות אפרים 38, קדומים"));
+
+        /*businessAdapterList.add(new BusinessAdapter(1236,1235,1234));*/
     }
+
 
     //When you add instance to one list the id will be from these
     //Variables
-    private static int userIndex = 0;
-    private static int bussinessIndex = 0;
-    private static int activityIndex = 0;
-    private static int adapterIndex = 0;
+    private static int index = 10000000;
 
-    private static List<User> usersList = new ArrayList<User>();
-    private static List<Bussiness> bussinessList = new ArrayList<Bussiness>();
-    private static List<Activity> activityList = new ArrayList<Activity>();
-    private static List<ActivityAdapter> activityAdapterList = new ArrayList<ActivityAdapter>();
+    private static List<User> usersList;//= new ArrayList<User>();
+    private static List<Business> businessList;// = new ArrayList<Business>();
+    private static List<Activity> activityList;//= new ArrayList<Activity>();
+    private static List<ActivityAdapter> activityAdapterList;//= new ArrayList<ActivityAdapter>();
+    private static List<BusinessAdapter> businessAdapterList;// = new ArrayList<BusinessAdapter>();
 
     //Add methods
     @Override
@@ -70,7 +106,7 @@ public class List_BackEnd implements IBackEnd {
         boolean flag = false;
         try {
             User temp = Tools.ContentValuesToUser(user);
-            temp.setId(++userIndex);
+            temp.setId(index + 1);
             for (User item : usersList) {
                 if (item.getId() == temp.getId() || item.getUsername().equals(temp.getUsername())) {
                     Log.e(TAG, "The user name is exist! choose another!");
@@ -79,35 +115,45 @@ public class List_BackEnd implements IBackEnd {
             }
             usersList.add(temp);
             flag = true;
-            return userIndex;
+            return index + 1;
 
         } catch (Exception e) {
             Log.i(TAG, "Field to add user");
             return -1;
         } finally {
-            if (flag)
+            if (flag) {
+                index++;
                 usersChangedTime = Tools.GetCurrentTime();
+            }
         }
     }
 
     @Override
-    public int addBussines(ContentValues bussines) {
+    public int addBussines(ContentValues business) {
         boolean flag = false;
         try {
-            Bussiness temp = Tools.ContentValuesToBussiness(bussines);
-            temp.setId(++bussinessIndex);
-            bussinessList.add(temp);
+            Business temp = Tools.ContentValuesToBussiness(business);
+            temp.setId(index + 1);
+            for (Business item : businessList) {
+                if (item.getId() == temp.getId())
+                    temp.setId(temp.getId() + 1);
+                else if (item.getName().equals(temp.getName()))
+                    return -2;
+            }
+            businessList.add(temp);
             flag = true;
 
-            return bussinessIndex;
+            return index + 1;
 
         } catch (Exception e) {
             Log.i(TAG, "Field to add bussiness");
             return -1;
 
         } finally {
-            if (flag)
+            if (flag) {
+                index++;
                 bussinessChangedTime = Tools.GetCurrentTime();
+            }
         }
 
     }
@@ -117,18 +163,20 @@ public class List_BackEnd implements IBackEnd {
         boolean flag = false;
         try {
             Activity temp = Tools.ContentValuesToActivity(activity);
-            temp.setId(++activityIndex);
+            temp.setId(++index);
             activityList.add(temp);
+            activityAdapterList.add(new ActivityAdapter(++index, temp.getId(), temp.getBussinessID()));
             flag = true;
 
-            return activityIndex;
+            return index;
 
         } catch (Exception e) {
             Log.i(TAG, "Field to add activity");
             return -1;
         } finally {
-            if (flag)
+            if (flag) {
                 activityChangedTime = Tools.GetCurrentTime();
+            }
         }
     }
 
@@ -137,18 +185,42 @@ public class List_BackEnd implements IBackEnd {
         boolean flag = false;
         try {
             ActivityAdapter temp = Tools.ContentValuesToActivityAdapter(activityAdapter);
-            temp.setId(++adapterIndex);
+            temp.setId(index + 1);
             activityAdapterList.add(temp);
             flag = true;
 
-            return adapterIndex;
+            return index + 1;
 
         } catch (Exception e) {
             Log.i(TAG, "Field to add adapter");
             return -1;
         } finally {
-            if (flag)
+            if (flag) {
+                index++;
                 adapterChangedTime = Tools.GetCurrentTime();
+            }
+        }
+    }
+
+    @Override
+    public int addBusinessAdapter(ContentValues businessAdapter) {
+        boolean flag = false;
+        try {
+            BusinessAdapter temp = Tools.ContentValuesToBusinessAdapter(businessAdapter);
+            temp.id = index + 1;
+            businessAdapterList.add(temp);
+            flag = true;
+
+            return index + 1;
+
+        } catch (Exception e) {
+            Log.i(TAG, "Field to add business adapter");
+            return -1;
+        } finally {
+            if (flag) {
+                index++;
+                businessAdapterChangedTime = Tools.GetCurrentTime();
+            }
         }
     }
 
@@ -171,9 +243,9 @@ public class List_BackEnd implements IBackEnd {
     public int removeBussines(int bussinessID) {
 
         boolean removed = false;
-        for (Bussiness item : bussinessList) {
+        for (Business item : businessList) {
             if (item.getId() == bussinessID)
-                removed = bussinessList.remove(item);
+                removed = businessList.remove(item);
         }
         if (removed) {
             bussinessChangedTime = Tools.GetCurrentTime();
@@ -188,7 +260,7 @@ public class List_BackEnd implements IBackEnd {
         boolean removed = false;
         for (Activity item : activityList) {
             if (item.getId() == activityID)
-                removed = usersList.remove(item);
+                removed = activityList.remove(item);
         }
         if (removed) {
             activityChangedTime = Tools.GetCurrentTime();
@@ -199,14 +271,27 @@ public class List_BackEnd implements IBackEnd {
 
     @Override
     public int removeActivityAdapter(int adapterID) {
-
         boolean removed = false;
         for (ActivityAdapter item : activityAdapterList) {
             if (item.getID() == adapterID)
-                removed = usersList.remove(item);
+                removed = activityAdapterList.remove(item);
         }
         if (removed) {
             adapterChangedTime = Tools.GetCurrentTime();
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int removeBusinessAdapter(int adapterID) {
+        boolean removed = false;
+        for (BusinessAdapter item : businessAdapterList) {
+            if (item.id == adapterID)
+                removed = businessAdapterList.remove(item);
+        }
+        if (removed) {
+            businessAdapterChangedTime = Tools.GetCurrentTime();
             return 1;
         }
         return 0;
@@ -240,13 +325,13 @@ public class List_BackEnd implements IBackEnd {
 
         boolean found = false;
 
-        for (Bussiness item : bussinessList) {
+        for (Business item : businessList) {
             if (item.getId() == bussinessID) {
-                Bussiness temp = Tools.ContentValuesToBussiness(values);
-                int index = bussinessList.indexOf(item);
-                found = bussinessList.remove(item);
+                Business temp = Tools.ContentValuesToBussiness(values);
+                int index = businessList.indexOf(item);
+                found = businessList.remove(item);
                 if (found) {
-                    bussinessList.add(index, temp);
+                    businessList.add(index, temp);
                     bussinessChangedTime = Tools.GetCurrentTime();
                     return true;
                 } else
@@ -298,6 +383,26 @@ public class List_BackEnd implements IBackEnd {
         return false;
     }
 
+    @Override
+    public boolean updateBusinessAdapter(int adapterID, ContentValues values) {
+        boolean found = false;
+
+        for (BusinessAdapter item : businessAdapterList) {
+            if (item.id == adapterID) {
+                BusinessAdapter temp = Tools.ContentValuesToBusinessAdapter(values);
+                int index = businessAdapterList.indexOf(item);
+                found = businessAdapterList.remove(item);
+                if (found) {
+                    businessAdapterList.add(index, temp);
+                    businessAdapterChangedTime = Tools.GetCurrentTime();
+                    return true;
+                } else
+                    return false;
+            }
+        }
+        return false;
+    }
+
 
     //Get cursor by generic method in the Tools class
     //provides the cursor of the given list by her columns and type
@@ -310,7 +415,7 @@ public class List_BackEnd implements IBackEnd {
 
     @Override
     public Cursor getBusiness() {
-        return Tools.listToCursor(bussinessList, Bussiness.class, iContract.BussinessFields.COLUMNS);
+        return Tools.listToCursor(businessList, Business.class, iContract.BussinessFields.COLUMNS);
     }
 
     @Override
@@ -323,6 +428,11 @@ public class List_BackEnd implements IBackEnd {
     public Cursor getAdapters() {
 
         return Tools.listToCursor(activityAdapterList, ActivityAdapter.class, iContract.ActivityAdapterFields.COLUMNS);
+    }
+
+    @Override
+    public Cursor getBusinessAdapters() {
+        return Tools.listToCursor(businessAdapterList, BusinessAdapter.class, iContract.BusinessAdapterFields.COLUMNS);
     }
 
 

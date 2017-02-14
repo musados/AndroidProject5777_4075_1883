@@ -14,7 +14,10 @@ import com.siduron.java.iTravel.Model.DataSource.iContract.ActivityAdapterFields
 
 import android.util.Log;
 
+import com.siduron.java.iTravel.Model.Entities.BusinessAdapter;
 import com.siduron.java.iTravel.Model.Entities.DBType;
+
+import static com.siduron.java.iTravel.Model.DataSource.iContract.*;
 
 
 /**
@@ -24,7 +27,7 @@ import com.siduron.java.iTravel.Model.Entities.DBType;
 public class iTravelContentProvider extends ContentProvider {
 
 
-    IBackEnd backend = BackendFactor.getIBackend(DBType.LIST);
+    IBackEnd backend = BackendFactor.getIBackend(DBType.WEB_DB);
 
 
     private static final String TAG = "iTravel Provider";
@@ -33,18 +36,25 @@ public class iTravelContentProvider extends ContentProvider {
     static final int USER_CODE = 1,
             BUSSINESS_CODE = 2,
             ACTIVITY_CODE = 3,
-            ACTIVITY_ADAPTER_CODE = 4;
+            ACTIVITY_ADAPTER_CODE = 4,
+            BUSSINESS_ADAPTER_CODE = 5;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, iContract.UserFields.TABLE_NAME, USER_CODE);
+        uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, UserFields.TABLE_NAME, USER_CODE);
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, UserFields.TABLE_NAME + "/*", USER_CODE);
+
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, BussinessFields.TABLE_NAME, BUSSINESS_CODE);
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, BussinessFields.TABLE_NAME + "/*", BUSSINESS_CODE);
+
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, ActivityFields.TABLE_NAME, ACTIVITY_CODE);
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, ActivityFields.TABLE_NAME + "/*", ACTIVITY_CODE);
+
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, ActivityAdapterFields.TABLE_NAME, ACTIVITY_ADAPTER_CODE);
         uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, ActivityAdapterFields.TABLE_NAME + "/*", ACTIVITY_ADAPTER_CODE);
+
+        uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, BusinessAdapterFields.TABLE_NAME, BUSSINESS_ADAPTER_CODE);
+        uriMatcher.addURI(iContract.ContentProvider.AUTHORITY, BusinessAdapterFields.TABLE_NAME + "/*", BUSSINESS_ADAPTER_CODE);
     }
 
     @Override
@@ -57,7 +67,7 @@ public class iTravelContentProvider extends ContentProvider {
     /**
      * Insert implementation
      * Returns the cursor of the DB or the list db
-     * @param uri  the uri of the type of requested objects - User, Bussiness or others
+     * @param uri  the uri of the type of requested objects - User, Business or others
      * @param strings the columns requested
      * @param s Requested column query term
      * @param strings1 the columns requested
@@ -83,6 +93,9 @@ public class iTravelContentProvider extends ContentProvider {
             case ACTIVITY_ADAPTER_CODE:
                 cursor = backend.getAdapters();
                 break;
+            case BUSSINESS_ADAPTER_CODE:
+                cursor = backend.getAdapters();
+                break;
             default:
                 throw new IllegalArgumentException(TAG+" Unknown Uri received!");
         }
@@ -94,7 +107,9 @@ public class iTravelContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(Uri uri)
+    {
+
         return null;
     }
 
@@ -116,6 +131,8 @@ public class iTravelContentProvider extends ContentProvider {
                 break;
             case ACTIVITY_ADAPTER_CODE:
                 resultId = backend.addAdapter(contentValues);
+            case BUSSINESS_ADAPTER_CODE:
+                resultId = backend.addBusinessAdapter(contentValues);
                 break;
             default:
                 break;

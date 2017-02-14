@@ -24,12 +24,13 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:ems">12</item>
         <item name="android:maxEms">20</item>
-        <item name="android:maxLength">25</item>
+        <item name="android:maxLength">35</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/white_input_background</item>
         <item name="android:layout_marginTop">@dimen/user_input_top_margin</item>
         <item name="android:layout_marginBottom">@dimen/user_input_bottom_margin</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">2dp</item>
+        <item name="android:padding">5dp</item>
     </style>
 
     <style name="AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton">
@@ -65,6 +66,25 @@
         <item name="android:padding">2dp</item>
     </style>
 
+    <style name="AlertDialog.AppCompat.Light.AddItemLabel">
+        <item name="android:layout_height">@dimen/user_texts_inputs_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/labels_text_color</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="AlertDialog.AppCompat.Light.Instructions">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bordered_instructions_background</item>
+        <item name="android:textColor">@color/instructionsTextColor</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -74,5 +94,40 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="EnteriesListViewText">
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="EnteriesListViewText.Title">
+        <item name="android:textSize">@dimen/titles_text_size</item>
+        <item name="android:textColor">@color/darkGreen</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="EnteriesListViewText.Subtitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/subtitles_text_size</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+
+    <style name="EnteriesListViewText.Normal">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
+
+    <style name="EnteriesListViewText.Link">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_height">23dp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
 
 </resources>

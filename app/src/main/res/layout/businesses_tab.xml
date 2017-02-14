@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/BusinessesLabel"
+        android:text="@string/businesses_list_label"
+        android:textColor="@color/darkRed"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:background="@drawable/titles_text_background"
+        android:layout_centerHorizontal="true"/>
+
+    <ListView
+        android:id="@+id/BusinessesListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/list_divider"
+        android:dividerHeight="1dp"
+        android:choiceMode="none"
+        android:listSelector="@drawable/list_selector"
+        android:background="@drawable/bordered_instructions_background"/>
+
+</LinearLayout>

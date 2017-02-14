@@ -208,47 +208,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/birth_day"
                 style="@style/AlertDialog.AppCompat.Light.WhiteTextInputLabel"/>
-            <!--<RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">-->
+
             <com.siduron.java.iTravel.Controller.DateTextPicker
                 android:id="@+id/BirthdayText"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                /><!--android:maxLines="1"
-                android:clickable="true"
-                android:layout_height="35dp"
-                android:layout_width="wrap_content"
-                android:ems="15"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:textIsSelectable="true"
-                android:text="1/01/1900"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:onClick="setDate"
-                android:background="@drawable/white_input_background"
-                android:textColor="@color/colorPrimaryDark"/>-->
-
-                <!--<ImageView
-                    android:id="@+id/BirthPicker"
-                    android:layout_width="30dp"
-                    android:nextFocusDown="@+id/userPhone"
-                    android:layout_height="@dimen/user_texts_inputs_height"
-                    android:src="@drawable/date_picker_icon"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:padding="2dp"
-                    android:clickable="true"
-                    android:onClick="setDate"
-                    android:layout_marginBottom="@dimen/user_input_bottom_margin"
-                    android:scaleType="fitCenter"
-                    android:background="@color/transparent"
-                    android:visibility="gone"/>-->
-                <!--</RelativeLayout>-->
+                />
 
             <TextView
                 android:layout_width="wrap_content"

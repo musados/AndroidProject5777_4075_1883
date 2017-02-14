@@ -10,15 +10,18 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.siduron.java.androidproject5777_4075_4075.R;
+import com.siduron.java.iTravel.Model.DataSource.Tools;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by musad on 27/01/2017.
  */
 
-public class DateTextPicker  extends TextView {
+public class DateTextPicker  extends TextView implements Observer {
     Calendar calendar;
 
     public DateTextPicker(Context context) {
@@ -43,10 +46,12 @@ public class DateTextPicker  extends TextView {
 
     public void setDate(Date date) {
         calendar.setTime(date);
-        int cyear = calendar.get(Calendar.YEAR);
-        int cmonth = calendar.get(Calendar.MONTH);
-        int cday = calendar.get(Calendar.DAY_OF_MONTH);
-        this.setText(cday + "/" + (cmonth + 1) + "/" + cyear);
+        this.setText(Tools.dateToString(date));
+    }
+
+    public Calendar getCalendar()
+    {
+        return calendar;
     }
 
     private void init() {
@@ -56,6 +61,7 @@ public class DateTextPicker  extends TextView {
         initClick();
         this.setBackground(getResources().getDrawable(R.drawable.white_input_background));
         this.setPadding(25, 10, 25, 10);
+
         this.setMinEms(12);
         this.setGravity(Gravity.CENTER);
         this.setTextSize(20);
@@ -89,10 +95,12 @@ public class DateTextPicker  extends TextView {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         calendar.set(year, monthOfYear, dayOfMonth);
-                        cyear=year;
-                        cmonth=monthOfYear;
-                        cday=dayOfMonth;
-                        DateTextPicker.this.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                        cyear = year;
+                        cmonth = monthOfYear;
+                        cday = dayOfMonth;
+                        DateTextPicker.this.setText(year + "-" +
+                                ((monthOfYear >= 10) ? (monthOfYear + 1) : "0" + (monthOfYear + 1)) + "-"
+                                + ((dayOfMonth >= 10) ? dayOfMonth : "0" + dayOfMonth));
                     }
                 };
                 cyear = calendar.get(Calendar.YEAR);
@@ -105,5 +113,11 @@ public class DateTextPicker  extends TextView {
             }
 
         });
+    }
+
+
+    @Override
+    public void update(Observable observable, Object o) {
+
     }
 }

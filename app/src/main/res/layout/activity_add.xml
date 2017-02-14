@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:verticalScrollbarPosition="defaultPosition"
+    android:scrollbars="vertical"
+    android:background="#fff"
+    android:scrollbarThumbVertical="@color/yellow"
+    android:scrollbarTrackVertical="@color/lightYellow"
+    android:overScrollMode="ifContentScrolls"
+    tools:context="com.siduron.java.iTravel.Controller.AddActivity">
+
+
+
+    <RelativeLayout
+        android:id="@+id/addingActivityForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@drawable/bordered_container">
+
+        <!-- Login progress -->
+        <ProgressBar
+            android:id="@+id/add_activity_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible" />
+        <TextView
+            android:id="@+id/add_activity_progrees_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/add_activity_progress"
+            android:text="@string/proccess_running_wait"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:id="@+id/AddActivityRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Instructions"
+
+                android:padding="10dp"
+                android:text="@string/add_activity_instructions"
+                android:layout_alignParentTop="true"
+                style="@style/AlertDialog.AppCompat.Light.Instructions"/>
+
+            <!--<TextView
+                android:id="@+id/ActivityId"
+                android:layout_below="@id/ActivityIDLabel"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:hint="00000000"
+                android:layout_centerHorizontal="true"/>-->
+
+            <TextView
+                android:id="@+id/BusinessIDLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_business_id"
+                android:layout_below="@id/Instructions"
+                style="@style/AlertDialog.AppCompat.Light.AddItemLabel"/>
+
+            <Spinner
+                android:id="@+id/BussinessId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/BusinessIDLabel"
+                android:layout_centerHorizontal="true"
+                android:minWidth="250dp"
+                android:minHeight="30dp"
+                style="@style/Animation.AppCompat.DropDownUp"
+                android:background="@android:drawable/dialog_holo_light_frame"/>
+
+            <EditText
+                android:id="@+id/ActivityName"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:hint="@string/activity_name"
+                android:layout_below="@id/BussinessId"
+                android:layout_centerHorizontal="true"
+                />
+
+            <EditText
+                android:id="@+id/ActivityDescription"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:hint="@string/activity_description"
+                android:layout_below="@id/ActivityName"
+                android:layout_centerHorizontal="true"/>
+
+            
+
+            <TextView
+                android:id="@+id/startDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_start_date"
+                android:layout_below="@id/ActivityDescription"
+                style="@style/AlertDialog.AppCompat.Light.AddItemLabel"/>
+
+            <com.siduron.java.iTravel.Controller.DateTextPicker
+                android:id="@+id/StartDate"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/startDateLabel"/>
+
+            <TextView
+                android:id="@+id/endDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_end_date"
+                android:layout_below="@id/StartDate"
+                style="@style/AlertDialog.AppCompat.Light.AddItemLabel"/>
+
+            <com.siduron.java.iTravel.Controller.DateTextPicker
+                android:id="@+id/EndDate"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/endDateLabel"/>
+            <!--</LinearLayout>-->
+
+            <TextView
+                android:id="@+id/CategoryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_category"
+                android:layout_below="@id/EndDate"
+                style="@style/AlertDialog.AppCompat.Light.AddItemLabel"/>
+
+            <Spinner
+                android:id="@+id/ActivityCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/CategoryLabel"
+                android:layout_centerHorizontal="true"
+                android:minWidth="250dp"
+                android:minHeight="30dp"
+                style="@style/Animation.AppCompat.DropDownUp"
+                android:background="@android:drawable/dialog_holo_light_frame" />
+
+            <EditText
+                android:id="@+id/ActivityLocation"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextInput"
+                android:hint="@string/activity_location"
+                android:layout_below="@id/ActivityCategory"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/PriceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_price"
+                android:layout_below="@id/ActivityLocation"
+                style="@style/AlertDialog.AppCompat.Light.AddItemLabel"/>
+
+
+            <LinearLayout
+                android:id="@+id/PriceContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/PriceLabel"
+                android:layout_centerHorizontal="true">
+                <EditText
+                    android:id="@+id/ActivityPrice"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:hint="0.0"
+                    android:inputType="numberDecimal"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/activityPriceCoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/darkRed"
+                    android:text="$"/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/AddButton"
+                android:layout_below="@id/PriceContainer"
+                android:layout_margin="15dp"
+                android:text="@string/add_button"
+                android:onClick="tryToAddActivity"
+                style="@style/AlertDialog.AppCompat.Light.WhiteTextWithShadow.LoginRegisterButton.MainButton" />
+
+        </RelativeLayout>
+
+</RelativeLayout>
+</ScrollView>

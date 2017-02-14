@@ -62,6 +62,13 @@ public class UpdateUserFragment extends Fragment {
     }
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        getActivity().setTitle(getResources().getString(R.string.update_user_profile));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

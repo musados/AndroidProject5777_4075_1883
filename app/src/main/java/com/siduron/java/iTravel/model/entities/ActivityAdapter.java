@@ -20,13 +20,13 @@ public class ActivityAdapter implements ITravelData{
      * Reseting the IDs
      *
      * @param activity for linking
-     * @param bussiness for linking.
+     * @param business for linking.
      */
-    public ActivityAdapter(int id0,Activity activity,Bussiness bussiness)
+    public ActivityAdapter(int id0,Activity activity,Business business)
     {
         id=id0;
         activityId = activity.getId();
-        bussinesId = bussiness.getId();
+        bussinesId = business.getId();
     }
 
     /**
